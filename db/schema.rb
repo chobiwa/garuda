@@ -23,4 +23,6 @@ ActiveRecord::Schema.define(version: 20140819100237) do
     t.integer "age"
   end
 
+  add_index "customers", ["mobile"], name: "index_customers_on_mobile", unique: true, using: :btree
+
 end
