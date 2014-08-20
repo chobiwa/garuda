@@ -65,7 +65,7 @@ describe Customer, :type => :model do
     
     all_customers.length.should == 1
     expected_customer = all_customers.first
-
+    
     expected_customer.name.should == "Chobi"
     expected_customer.mobile.should == "9611805469"
     expected_customer.email.should == "chobi@goo.com"
