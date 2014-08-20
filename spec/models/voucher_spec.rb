@@ -16,7 +16,7 @@ describe Voucher, :type => :model do
 
   end
 
-  it "should ensure presence of barcode number" do
+  it "should ensure presence of barcode_number" do
 
   	Voucher.create barcode_number: "", scratch_code: "#abc123"
 
@@ -52,6 +52,24 @@ describe Voucher, :type => :model do
 
   end
 
+
+  it "should ensure uniqueness of scratch_code" do
+
+  	Voucher.create barcode_number: "#123abc", scratch_code: "#abc123"
+
+  	expect {
+  	Voucher.create barcode_number: "#124abc", scratch_code: "#abc123"
+  	}.to raise_error(ActiveRecord::RecordNotUnique)
+
+  	all_vouchers = Voucher.all
+  	all_vouchers.length.should == 1
+
+  	expected_voucher = all_vouchers.first
+
+  	expected_voucher.barcode_number.should == '#123abc'
+  	expected_voucher.scratch_code.should == '#abc123'
+
+  end
 
 
 end
