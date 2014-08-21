@@ -46,4 +46,16 @@ describe Transaction, :type => :model do
     all_transactions.length.should == 0
 
   end
+
+  it "should not create a transaction with invalid date" do
+
+    Customer.create! id: 1, name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78
+
+    Transaction.create id: 1, customer_id: 1, date: '2012-03-2012'
+
+    all_transactions = Transaction.all
+    all_transactions.length.should == 0
+    
+  end
+
 end
