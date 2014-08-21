@@ -1,7 +1,8 @@
 class Transaction < ActiveRecord::Base
-	belongs_to :customer, :foreign_key => "customer_id"
+	belongs_to :customer
 	validates :customer, :presence => true
 
-	validates :customer_id, :presence => true
 	validates :date, :presence => true
+
+  has_many :transaction_items
 end

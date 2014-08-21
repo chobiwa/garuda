@@ -3,59 +3,46 @@ require "rails_helper"
 describe Transaction, :type => :model do
 
   it "should create a transaction" do
+   cust = Customer.new(name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78)
+   cust.transactions.new date:'2012-03-14'
+   cust.save!
+  	
 
-    Customer.create! id: 1, name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78
+    all_transactions = Transaction.all
 
-  	Transaction.create customer_id: 1, date: '2012-03-14'
-
-  	all_transactions = Transaction.all
   	all_transactions.length.should == 1
-
   	expected_transaction = all_transactions.first
-
-  	expected_transaction.customer_id.should == 1
-  	expected_transaction.date.to_s.should	 ==  '2012-03-14'
-
+  	expected_transaction.customer.should == cust
+  	expected_transaction.date.should	 ==  Date.new(2012,3,14)
   end
 
   it "should not create a transaction with non existent customer id" do
-
-    Customer.create! id: 1, name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78
-
-    Transaction.create customer_id: 100, date: '2012-03-14'
+    Transaction.create date: '2012-03-14'
 
     all_transactions = Transaction.all
     all_transactions.length.should == 0
-
-
-  end
-  it "sholud ensure presence of customer_id" do
-  	
-    Transaction.create customer_id: nil, date: '2012-03-14'
-
-    all_transactions = Transaction.all
-    all_transactions.length.should == 0
-
   end
 
   it "sholud ensure presence of date" do
-    
-    Transaction.create customer_id: 1, date: nil
+    cust = Customer.new(name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78)
+    cust.save!
+
+    cust.transactions.new date:nil
+    cust.save
 
     all_transactions = Transaction.all
     all_transactions.length.should == 0
-
   end
 
   it "should not create a transaction with invalid date" do
+    cust = Customer.new(name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78)
+    cust.save!
 
-    Customer.create! id: 1, name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78
-
-    Transaction.create id: 1, customer_id: 1, date: '2012-03-2012'
+    cust.transactions.new date:'2012-03-2012'
+    cust.save
 
     all_transactions = Transaction.all
     all_transactions.length.should == 0
-    
   end
 
 end
