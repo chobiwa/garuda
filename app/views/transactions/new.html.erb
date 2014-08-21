@@ -1,0 +1,58 @@
+<h4>Add Receipts</h4>
+
+<div class="receipt-forms" id="ReceiptForms">
+  
+  <form class="form-inline receipt-form">
+    <input type="text" class="input-small store-name" placeholder="Store Name">
+    <input type="text" class="input-small amount" placeholder="Amount">
+    <input type="text" class="input-small bill-no" placeholder="Bill No">
+    <select class="input-small is-today">
+      <option>Is Today</option>
+      <option>Yes</option>
+      <option>No</option>
+    </select>
+  </form>
+
+  <form id="ReceiptTemplate" class="form-inline receipt-form-template hide">
+    <input type="text" class="input-small store-name" placeholder="Store Name">
+    <input type="text" class="input-small amount" placeholder="Amount">
+    <input type="text" class="input-small bill-no" placeholder="Bill No">
+    <select class="input-small is-today">
+      <option value="">Is Today</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+  </form>
+
+
+</div>
+
+<h4>Add Customer Details</h4>
+
+<form id="CustomerInfo" class="form-inline">
+  <input type="text" class="input-small mobile" placeholder="Mobile">
+  <input type="text" class="input-small name" placeholder="Name">
+  <input type="text" class="input-small email" placeholder="Email">
+  <input type="text" class="input-small gender" placeholder="Gender">
+  <input type="text" class="input-small age" placeholder="Age">
+  <input type="text" class="input-small occupation" placeholder="Occupation">
+  <input type="text" class="input-small address" placeholder="Address">
+</form>
+
+<h4>Add Voucher Details</h4>
+
+<form class="form-inline voucher-form">
+  <input type="text" class="input-small bar-code" placeholder="Barcode Number">
+  <input type="text" class="input-small scratch-code" placeholder="Scratch Code">
+</form>
+
+<form class="form-inline voucher-form-template hide">
+  <input type="text" class="input-small" placeholder="Barcode Number">
+  <input type="text" class="input-small" placeholder="Scratch Code">
+</form>
+
+<br/>
+<p>
+  <button id="Save" class="btn btn-large btn-primary" type="button">Save</button>
+</p>
+

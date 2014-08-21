@@ -5,4 +5,5 @@ class Transaction < ActiveRecord::Base
 	validates :date, :presence => true
 
   has_many :transaction_items
+  has_many :vouchers
 end
