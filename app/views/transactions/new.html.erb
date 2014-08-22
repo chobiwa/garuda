@@ -2,16 +2,49 @@
 
 <div class="receipt-forms" id="ReceiptForms">
   
-  <form class="form-inline receipt-form">
+
+    <form class="receipt-form">
+        <div class="row">
+            <div class="col-xs-2">
+              <div class="input-group">
+                <input type="text" class="form-control store-name" placeholder="Store Name">
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="input-group">
+                <input type="text" class="form-control amount" placeholder="Amount">
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="input-group">
+                <input type="text" class="form-control bill-no" placeholder="Bill No">
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="input-group">
+                <select class="form-control is-today">
+                  <option>Is Today</option>
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+              </div>
+            </div>
+        </div>
+    </form>
+
+  <!-- <form class="form-inline receipt-form">
+
     <input type="text" class="input-small store-name" placeholder="Store Name">
+    
     <input type="text" class="input-small amount" placeholder="Amount">
+    
     <input type="text" class="input-small bill-no" placeholder="Bill No">
     <select class="input-small is-today">
       <option>Is Today</option>
       <option>Yes</option>
       <option>No</option>
     </select>
-  </form>
+  </form> -->
 
   <form id="ReceiptTemplate" class="form-inline receipt-form-template hide">
     <input type="text" class="input-small store-name" placeholder="Store Name">
@@ -23,7 +56,6 @@
       <option value="no">No</option>
     </select>
   </form>
-
 
 </div>
 

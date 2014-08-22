@@ -19,18 +19,23 @@ describe TransactionsController do
     customer.transactions.length.should == 1
     transaction = customer.transactions.first
     transaction.customer.should == customer
-    transaction.date.should   ==  Date.today
+    transaction.date.should == Date.today
 
     transaction.transaction_items.length.should == 1
     transaction_item = transaction.transaction_items.first
-    transaction.customer.should == customer
-    transaction.date.should   ==  Date.today
-    #transaction_items fields asserts
+    transaction_item.transact.should == transaction
+    transaction_item.item_id.should == "AWE"
+    transaction_item.store.should == Store.first
+    transaction_item.amount.should == 1000
+    transaction_item.date.should   ==  Date.today
 
     transaction.vouchers.length.should == 1
     voucher = transaction.vouchers.first
     voucher.barcode_number.should == "QWEEW"
     voucher.scratch_code.should == 'YUUI'
   end
+
+
+  
 
 end

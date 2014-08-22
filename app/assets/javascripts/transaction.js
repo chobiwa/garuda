@@ -48,6 +48,18 @@ var Transaction =  function(argument) {
         };
 
         console.log(transactionInfo.toString());
+        
+        $.ajax({
+          type: "POST",
+          url: "/transactions",
+          data: JSON.stringify(transactionInfo),
+          success: function(data){
+            alert("yaay!!!");
+          },
+          error: function(data){
+            alert("booooo!!!");
+          },
+        })
 
       });
   }
