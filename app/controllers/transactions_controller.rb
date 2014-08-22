@@ -26,8 +26,17 @@ class TransactionsController < ApplicationController
     end
 
     customer = Customer.find_by_mobile(customer_info["mobile"])
+    
+
     if(customer.nil?)
       customer = Customer.new(name: customer_info["name"], email: customer_info["email"], mobile: customer_info["mobile"], address: customer_info["address"], occupation: customer_info["occupation"], gender: customer_info["gender"], age: customer_info["age"])
+    else
+      customer.name = customer_info["name"]
+      customer.email = customer_info["email"]
+      customer.address = customer_info["address"]
+      customer.occupation = customer_info["occupation"]
+      customer.gender = customer_info["gender"]
+      customer.age = customer_info["age"]
     end
     
     transaction = customer.transactions.new date:Date.today
@@ -42,7 +51,7 @@ class TransactionsController < ApplicationController
     end
     
     voucher_info.each do |voucher|
-      transaction.vouchers.new(barcode_number: voucher["barCode"], scratch_code: voucher["scratchCode"])
+      transaction.vouchers.new(barcode_number: voucher["barCode"])
     end
 
     customer.save!

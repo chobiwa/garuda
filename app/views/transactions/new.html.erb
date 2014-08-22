@@ -1,90 +1,173 @@
-<h4>Add Receipts</h4>
+<div class="row">
+  <section>
+    <div class="page-header">
+      <h4>Add Receipts</h4>
+    </div>
+    <div class="receipt-forms" id="ReceiptForms">
 
-<div class="receipt-forms" id="ReceiptForms">
-  
-
-    <form class="receipt-form">
-        <div class="row">
-            <div class="col-xs-2">
-              <div class="input-group">
-                <input type="text" class="form-control store-name" placeholder="Store Name">
-              </div>
+        <form class="receipt-form">
+            <div class="row">
+                <div class="col-xs-2">
+                  <div id="IsToday-1" class="input-group">
+                    <select class="form-control is-today rcontrol">
+                      <option value="">Is Today</option>
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="input-group">
+                    <input id="StoreName-1" type="text" class="form-control store-name rcontrol" placeholder="Store Name" disabled="disabled">
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="input-group">
+                    <input id="BillNo-1" type="text" class="form-control bill-no rcontrol" placeholder="Bill No" disabled="disabled">
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="input-group">
+                    <input id="Amount-1" type="text" class="form-control amount rcontrol" placeholder="Amount" disabled="disabled">
+                  </div>
+                </div>
             </div>
-            <div class="col-xs-2">
-              <div class="input-group">
-                <input type="text" class="form-control amount" placeholder="Amount">
-              </div>
-            </div>
-            <div class="col-xs-2">
-              <div class="input-group">
-                <input type="text" class="form-control bill-no" placeholder="Bill No">
-              </div>
-            </div>
-            <div class="col-xs-2">
-              <div class="input-group">
-                <select class="form-control is-today">
-                  <option>Is Today</option>
-                  <option>Yes</option>
-                  <option>No</option>
-                </select>
-              </div>
-            </div>
-        </div>
-    </form>
+        </form>
+        
+    </div>
 
-  <!-- <form class="form-inline receipt-form">
+  </section>
+  <br/>
+  <button id="DoneReceipts" class="btn btn-large btn-primary col-lg-1" type="button">Done</button>
+  <button id="EditReceipts" class="btn btn-large btn-danger col-lg-1 hide" type="button">Edit</button>
 
-    <input type="text" class="input-small store-name" placeholder="Store Name">
-    
-    <input type="text" class="input-small amount" placeholder="Amount">
-    
-    <input type="text" class="input-small bill-no" placeholder="Bill No">
-    <select class="input-small is-today">
-      <option>Is Today</option>
-      <option>Yes</option>
-      <option>No</option>
-    </select>
-  </form> -->
-
-  <form id="ReceiptTemplate" class="form-inline receipt-form-template hide">
-    <input type="text" class="input-small store-name" placeholder="Store Name">
-    <input type="text" class="input-small amount" placeholder="Amount">
-    <input type="text" class="input-small bill-no" placeholder="Bill No">
-    <select class="input-small is-today">
-      <option value="">Is Today</option>
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-    </select>
+  <form class="receipt-form-template hide" style="margin-top: 15px;">
+      <div class="row">
+          <div class="col-xs-2">
+            <div class="input-group">
+              <select class="form-control is-today rcontrol">
+                <option value="">Is Today</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xs-2">
+            <div class="input-group">
+              <input type="text" class="form-control store-name rcontrol" placeholder="Store Name" disabled="disabled">
+            </div>
+          </div>
+          <div class="col-xs-2">
+            <div class="input-group">
+              <input type="text" class="form-control bill-no rcontrol" placeholder="Bill No" disabled="disabled">
+            </div>
+          </div>
+          <div class="col-xs-2">
+            <div class="input-group">
+              <input type="text" class="form-control amount rcontrol" placeholder="Amount" disabled="disabled">
+            </div>
+          </div>
+      </div>
   </form>
+  
+</div>
+
+<div class="row">
+  <section>
+    <div class="page-header">
+      <h4>Add Customer Details</h4>
+    </div>
+
+    <form class="form-horizontal customer-form" role="form">
+      <div class="form-group">
+        <label for="Mobile" class="col-sm-2 control-label">Mobile</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control mobile ccontrol" id="Mobile" placeholder="mobile">
+        </div>
+        <div class="col-sm-3">
+          <button id="GetCustomer" class="btn btn-large btn-primary ccontrol" type="button">Get Customer</button>
+        </div>
+      </div>
+      <div id="CustomerData" class="hide">
+        <div class="form-group">
+          <label for="Name" class="col-sm-2 control-label">Name</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control name ccontrol" id="Name" placeholder="Name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Email" class="col-sm-2 control-label">Email</label>
+          <div class="col-sm-6">
+            <input type="email" class="form-control email ccontrol" id="Email" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Gender" class="col-sm-2 control-label">Gender</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control gender ccontrol" id="Gender" placeholder="Gender">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Age" class="col-sm-2 control-label">Age</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control age ccontrol" id="Age" placeholder="Age">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Occupation" class="col-sm-2 control-label">Occupation</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control occupation ccontrol" id="Occupation" placeholder="Occupation">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Address" class="col-sm-2 control-label">Address</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control address ccontrol" id="Address" placeholder="Address">
+          </div>
+        </div>
+      </div>
+    </form>
+    <br/>
+    <button id="DoneCustomer" class="btn btn-large btn-primary col-lg-1" type="button">Done</button>
+    <button id="EditCustomer" class="btn btn-large btn-danger col-lg-1 hide" type="button">Edit</button>
+
+  </section>
+</div>
+
+<div class="row">
+<section id="VoucherDetailsSection" class="hide">
+  <div  class="page-header">
+    <h4>Add Voucher Details</h4>
+  </div>
+  <div id="VoucherForms">
+  
+  </div>
+</section>
+<form class="voucher-form-template hide" style="margin-top: 15px;">
+    <div class="row">
+        <div class="col-xs-2">
+          <div class="input-group">
+            <input type="text" class="form-control store-name vcontrol voucher-code" placeholder="Voucher Code">
+          </div>
+        </div>
+    </div>
+</form>
 
 </div>
 
-<h4>Add Customer Details</h4>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
-<form id="CustomerInfo" class="form-inline">
-  <input type="text" class="input-small mobile" placeholder="Mobile">
-  <input type="text" class="input-small name" placeholder="Name">
-  <input type="text" class="input-small email" placeholder="Email">
-  <input type="text" class="input-small gender" placeholder="Gender">
-  <input type="text" class="input-small age" placeholder="Age">
-  <input type="text" class="input-small occupation" placeholder="Occupation">
-  <input type="text" class="input-small address" placeholder="Address">
-</form>
 
-<h4>Add Voucher Details</h4>
+<div class="row" style="margin-bottom: 100px;">
+  <button id="Save" class="btn btn-large btn-primary col-lg-2" type="button" disabled="disabled">Save Details</button>
+  <button id="Reset" class="btn btn-large btn-danger col-lg-2" style="margin-left: 25px;" type="button">Reset</button>
+</div>
 
-<form class="form-inline voucher-form">
-  <input type="text" class="input-small bar-code" placeholder="Barcode Number">
-  <input type="text" class="input-small scratch-code" placeholder="Scratch Code">
-</form>
 
-<form class="form-inline voucher-form-template hide">
-  <input type="text" class="input-small" placeholder="Barcode Number">
-  <input type="text" class="input-small" placeholder="Scratch Code">
-</form>
 
-<br/>
-<p>
-  <button id="Save" class="btn btn-large btn-primary" type="button">Save</button>
-</p>
 

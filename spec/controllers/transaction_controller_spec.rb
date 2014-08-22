@@ -15,7 +15,7 @@ describe TransactionsController do
                     ],
                     "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
                     "voucherInfo":[
-                        {"barCode":"QWEEW","scratchCode":"YUUI"}
+                        {"barCode":"QWEEW"}
                     ]}'
 
     Customer.all.length.should == 1
@@ -44,7 +44,6 @@ describe TransactionsController do
     transaction.vouchers.length.should == 1
     voucher = transaction.vouchers.first
     voucher.barcode_number.should == "QWEEW"
-    voucher.scratch_code.should == 'YUUI'
   end
   
   it "Creates a transaction with multiple receipts" do
@@ -56,7 +55,7 @@ describe TransactionsController do
                     ],
                     "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
                     "voucherInfo":[
-                        {"barCode":"QWEEW","scratchCode":"YUUI"}
+                        {"barCode":"QWEEW"}
                     ]}'
 
     Customer.all.length.should == 1
@@ -76,9 +75,9 @@ describe TransactionsController do
                     ],
                     "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
                     "voucherInfo":[
-                        {"barCode":"1","scratchCode":"1"},
-                        {"barCode":"2","scratchCode":"2"},
-                        {"barCode":"3","scratchCode":"3"}
+                        {"barCode":"1"},
+                        {"barCode":"2"},
+                        {"barCode":"3"}
                     ]}'
 
     Customer.all.length.should == 1
@@ -97,9 +96,9 @@ describe TransactionsController do
                     ],
                     "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
                     "voucherInfo":[
-                        {"barCode":"1","scratchCode":"1"},
-                        {"barCode":"2","scratchCode":"2"},
-                        {"barCode":"3","scratchCode":"3"}
+                        {"barCode":"1"},
+                        {"barCode":"2"},
+                        {"barCode":"3"}
                     ]}'
 
     expect(response).to have_http_status(:bad_request)
@@ -115,7 +114,7 @@ describe TransactionsController do
                     ],
                     "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
                     "voucherInfo":[
-                        {"barCode":"1","scratchCode":"1"}
+                        {"barCode":"1"}
                     ]}'
 
     expect(response).to have_http_status(:bad_request)
@@ -131,11 +130,11 @@ describe TransactionsController do
                     ],
                     "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
                     "voucherInfo":[
-                        {"barCode":"1","scratchCode":"1"},
-                        {"barCode":"2","scratchCode":"2"},
-                        {"barCode":"3","scratchCode":"3"},
-                        {"barCode":"4","scratchCode":"4"},
-                        {"barCode":"5","scratchCode":"5"}
+                        {"barCode":"1"},
+                        {"barCode":"2"},
+                        {"barCode":"3"},
+                        {"barCode":"4"},
+                        {"barCode":"5"}
                     ]}'
 
     expect(response).to have_http_status(:bad_request)
@@ -151,8 +150,8 @@ describe TransactionsController do
                     ],
                     "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
                     "voucherInfo":[
-                        {"barCode":"1","scratchCode":"1"},
-                        {"barCode":"2","scratchCode":"2"}
+                        {"barCode":"1"},
+                        {"barCode":"2"}
                     ]}'
 
     post :create, '{"receiptInfo":[
@@ -160,17 +159,24 @@ describe TransactionsController do
                         {"storeName":"Monkey Bar","amount":"1020","billNo":"4", "isToday":true},
                         {"storeName":"Donkey Car","amount":"1000","billNo":"5", "isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"Foo","email":"foo@tw.cc","gender":"F","age":"121","occupation":"Foo","address":"Foo"},
                     "voucherInfo":[
-                        {"barCode":"3","scratchCode":"3"},
-                        {"barCode":"4","scratchCode":"4"},
-                        {"barCode":"5","scratchCode":"5"}
+                        {"barCode":"3"},
+                        {"barCode":"4"},
+                        {"barCode":"5"}
                     ]}'
 
     Customer.all.length.should == 1
     customer = Customer.first
+    customer.name.should == "Foo"
+    customer.mobile.should == "9887887878"
+    customer.email.should == "foo@tw.cc"
+    customer.address.should == "Foo"
+    customer.occupation.should == "Foo"
+    customer.gender.should == "F"
+    customer.age.should == 121
+
     customer.transactions.length.should == 2
-    
     transaction = customer.transactions[0]
     transaction.transaction_items.length.should == 2
     transaction.vouchers.length.should == 2
@@ -188,7 +194,7 @@ describe TransactionsController do
                     ],
                     "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
                     "voucherInfo":[
-                        {"barCode":"QWEEW","scratchCode":"YUUI"}
+                        {"barCode":"QWEEW"}
                     ]}'
 
     expect(response).to have_http_status(:bad_request)
