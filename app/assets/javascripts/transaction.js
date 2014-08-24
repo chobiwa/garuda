@@ -88,7 +88,8 @@ var Transaction =  function(argument) {
       $(this).addClass("hide");
       reciptsDone = true;
       enableDisableSaveButton();
-    })
+    });
+
     $("#EditReceipts").click(function(){
       $("#DoneReceipts").removeClass("hide");
       $("#ReceiptForms").find(".rcontrol").removeAttr('disabled');
@@ -97,8 +98,28 @@ var Transaction =  function(argument) {
       $(this).addClass("hide");
       reciptsDone = false;
       enableDisableSaveButton();
-    })
+    });
+
+    $('.typeahead').typeahead({
+      hint: false,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      name: 'stores',
+      displayKey: 'value',
+      source: function(q, cb){return cb([]);},
+      templates: {
+          empty: [
+            '<div class="empty-message">',
+            'unable to find any Best Picture winners that match the current query',
+            '</div>'
+          ].join('\n')
+        }
+    });
   }
+
+  var stores = [{value: "Foo"},{value: "bar"}, {value: "baz"}];
 
   var initCustomer = function(){
     $("#GetCustomer").click(function(){
@@ -203,6 +224,7 @@ var Transaction =  function(argument) {
     
 }
 
-
-var t = new Transaction();
-t.init();
+$(document).ready(function(){
+  var t = new Transaction();
+  t.init();  
+})
