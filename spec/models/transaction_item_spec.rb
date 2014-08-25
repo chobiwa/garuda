@@ -82,11 +82,12 @@ describe TransactionItem, :type => :model do
     Customer.create! id: 1, name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78
   	Transaction.create id: 1, customer_id: 1, date: '2012-03-14'
   	Store.create id: 1, name: 'MAX'
-  	TransactionItem.create transaction_id: 1, item_id: "122ABC", store_id: 1, amount: 2000, date: '2012-03-04'
+  	TransactionItem.create! transaction_id: 1, item_id: "122ABC", store_id: 1, amount: 2000, date: '2012-03-04'
 
-  	expect {
-  		TransactionItem.create transaction_id: 1, item_id: "122ABC", store_id: 1, amount: 2000, date: '2012-03-04'
-    }.to raise_error(ActiveRecord::RecordNotUnique)
+    expect{
+      TransactionItem.create! transaction_id: 1, item_id: "122ABC", store_id: 1, amount: 2000, date: '2012-03-04'  
+    }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Item Receipt Taken")
+  	
 
 
   	all_TransactionItems = TransactionItem.all

@@ -294,20 +294,27 @@ var Transaction =  function(argument) {
           url: "/transactions",
           data: JSON.stringify(transactionInfo),
           success: function(data){
-            alert("yaay!!!");
+            location.reload();
           },
           error: function(data){
-            alert("booooo!!!");
-          },
+            var msg = "";
+            response = data.responseJSON
+            $(response).each(function(){
+              msg = msg + this+"<br/>"
+            });
+            $("#Errors").empty();
+            $("#Errors").html(msg);
+            $("#Errors").removeClass("hide");
+          }
         })
-
       });
-     
   }
     
 }
 
 $(document).ready(function(){
-  var t = new Transaction();
-  t.init();  
+  if($(".new-transaction").length != 0){
+    var t = new Transaction();
+    t.init();    
+  }
 })

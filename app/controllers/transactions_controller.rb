@@ -63,9 +63,25 @@ class TransactionsController < ApplicationController
       transaction.vouchers.new(barcode_number: voucher["barCode"])
     end
 
-    customer.save!
+    begin
+      customer.save!  
+    rescue ActiveRecord::RecordInvalid => e
+      errors = []
+      
+      transaction.transaction_items.each do |ti|
+        ti.errors.to_a.each do |e|
+          if(e == "Item Receipt Taken")
+            errors << "Dupliacte Receipt #{ti.item_id}"
+          end
+        end
+      end
 
-        
+      render  :json => errors, :status => :bad_request
+      return
+    end
+    
+
+    flash[:notice] = "Transaction saved."    
     render :nothing => true
   end
 end
