@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821101213) do
+ActiveRecord::Schema.define(version: 20140824070803) do
 
   create_table "customers", force: true do |t|
     t.string  "name",       null: false
@@ -45,6 +45,17 @@ ActiveRecord::Schema.define(version: 20140821101213) do
     t.date    "date",        null: false
     t.integer "customer_id"
   end
+
+  create_table "users", force: true do |t|
+    t.string   "email",               default: "", null: false
+    t.string   "encrypted_password",  default: "", null: false
+    t.datetime "remember_created_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   create_table "vouchers", force: true do |t|
     t.string  "barcode_number", null: false
