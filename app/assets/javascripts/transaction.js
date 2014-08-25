@@ -113,9 +113,6 @@ var Transaction =  function(argument) {
   }
 
   var initReceipts = function(){
-    $(".receipt-form").validate({
-
-    });
     bindToChange($("#IsToday-1"));
     $("#DoneReceipts").click(function(){
       
@@ -174,7 +171,8 @@ var Transaction =  function(argument) {
   var initCustomer = function(){
     $("#GetCustomer").click(function(){
       resetCustomerForm();
-      
+      if(!$(".mobile").valid()) return;
+
       $.ajax({
         type: "GET",
         url: "/customers/"+$(".mobile").val().trim(),
@@ -199,6 +197,17 @@ var Transaction =  function(argument) {
     });
 
     $("#DoneCustomer").click(function(){
+      var isValid = true;
+      $(".customer-form").each(function(){
+        $(this).find("input").each(function(){
+          if(!$(this).attr("disabled")){
+            isValid = $(this).valid() && isValid;
+          }
+        });
+      });
+
+      if(!isValid) return;
+
       $("#EditCustomer").removeClass("hide");
       $(".ccontrol").attr('disabled','disabled');
       $(this).addClass("hide");
@@ -224,6 +233,16 @@ var Transaction =  function(argument) {
       initCustomer();
       $("#Reset").click(function(){location.reload();});
       $("#Save").click(function(){
+
+        var isValid = true;
+        $(".voucher-form").each(function(){
+          $(this).find("input").each(function(){
+            if(!$(this).attr("disabled")){
+              isValid = $(this).valid() && isValid;
+            }
+          });
+        });
+        if(!isValid) return;
 
         var receiptInfo = [];
         var receiptForms = $(".receipt-form");
