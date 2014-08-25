@@ -21,7 +21,7 @@ describe WinnersController do
     post :create, :voucher => "#123abc"
 
     v = Voucher.first
-    v.is_winner.should == true
+    v.is_winner?.should == true
   end
 
   it "there cannot be more that one winner per day" do
@@ -40,7 +40,7 @@ describe WinnersController do
     post :create, :voucher => "#123abc"
     post :create, :voucher => "#123qwe"
 
-    expect(response).to redirect_to new_winner_path
+    expect(response).to redirect_to new_transaction_path
   end
 
   it "fail when marking a non issued voucher as winner" do

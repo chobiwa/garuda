@@ -6,4 +6,9 @@ class Transaction < ActiveRecord::Base
 
   has_many :transaction_items
   has_many :vouchers
+
+  def is_winner?
+    v = self.vouchers.find {|v| v.is_winner?}
+    !v.nil?
+  end
 end

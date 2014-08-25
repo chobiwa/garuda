@@ -29,7 +29,7 @@ describe Voucher, :type => :model do
     v.save!
 
     v = Voucher.first
-    v.is_winner.should == true
+    v.is_winner?.should == true
     v.win_date.should == Date.today
   end
 

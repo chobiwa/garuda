@@ -8,7 +8,7 @@ class Voucher < ActiveRecord::Base
     self.win_date = Date.today
   end
 
-  def is_winner
+  def is_winner?
     self.winner
   end
 end

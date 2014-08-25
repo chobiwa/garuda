@@ -205,4 +205,57 @@ describe TransactionsController do
     Customer.all.length.should == 0
   end
 
+  it "should not issue vouchers to customers who have already won" do
+    post :create, '{"receiptInfo":[
+                        {"storeName":"Cookie Jar","amount":"1000","billNo":"AWE","isToday":true}
+                    ],
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "voucherInfo":[
+                        {"barCode":"QWEEW"}
+                    ]}'
+
+    v = Voucher.find_by_barcode_number "QWEEW"
+    v.mark_as_winner
+    v.save!
+
+    post :create, '{"receiptInfo":[
+                        {"storeName":"Cookie Jar","amount":"1000","billNo":"AWES","isToday":true}
+                    ],
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "voucherInfo":[
+                        {"barCode":"WERTY"}
+                    ]}'
+
+
+    expect(response).to have_http_status(:bad_request)
+  end
+
+  it "should update transaction details for winning customers" do
+    post :create, '{"receiptInfo":[
+                        {"storeName":"Cookie Jar","amount":"1000","billNo":"AWE","isToday":true}
+                    ],
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "voucherInfo":[
+                        {"barCode":"QWEEW"}
+                    ]}'
+
+    v = Voucher.find_by_barcode_number "QWEEW"
+    v.mark_as_winner
+    v.save!
+
+    post :create, '{"receiptInfo":[
+                        {"storeName":"Monkey Bar","amount":"1000","billNo":"AWES","isToday":true}
+                    ],
+                    "customerInfo":{"mobile":"9887887878","name":"Foo","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"}}'
+
+
+    expect(response).to have_http_status(:ok)
+    c = Customer.first
+    c.transactions.length.should == 2
+    c.name.should == "Foo"
+    t = c.transactions.last
+    t.vouchers.length.should == 0
+  end
+
+
 end

@@ -9,26 +9,19 @@ class TransactionsController < ApplicationController
     customer_info = body["customerInfo"] 
     receipt_info = body["receiptInfo"]
     voucher_info = body["voucherInfo"]
+    voucher_info = voucher_info.nil? ? [] : voucher_info
 
     total_receipt_value = receipt_info
                           .map{|h| h["amount"].to_i}
                           .inject{|total, val| total+val}
 
     if(total_receipt_value < 1000)
-       render :nothing => true, :status => 400
+       render :nothing => true, :status => :bad_request
        return
     end
 
-    no_of_vouchers_to_issue = total_receipt_value / 1000
-
-    if(voucher_info.length != no_of_vouchers_to_issue)
-      render :nothing => true, :status => 400
-      return
-    end
 
     customer = Customer.find_by_mobile(customer_info["mobile"])
-    
-
     if(customer.nil?)
       customer = Customer.new(name: customer_info["name"], email: customer_info["email"], mobile: customer_info["mobile"], address: customer_info["address"], occupation: customer_info["occupation"], gender: customer_info["gender"], age: customer_info["age"])
     else
@@ -39,9 +32,23 @@ class TransactionsController < ApplicationController
       customer.gender = customer_info["gender"]
       customer.age = customer_info["age"]
     end
-    
-    transaction = customer.transactions.new date:Date.today
 
+
+    if(customer.is_winner? and !voucher_info.empty?)
+      render :nothing => true, :status => :bad_request
+      return
+    end
+
+    if(not customer.is_winner?)
+      no_of_vouchers_to_issue = total_receipt_value / 1000
+
+      if(voucher_info.length != no_of_vouchers_to_issue)
+        render :nothing => true, :status => 400
+        return
+      end
+    end
+
+    transaction = customer.transactions.new date:Date.today
     receipt_info.each do |receipt|
       store = Store.find_by_name(receipt["storeName"])
       if(store.nil?)

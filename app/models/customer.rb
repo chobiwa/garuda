@@ -4,4 +4,10 @@ class Customer < ActiveRecord::Base
    validates :mobile, :presence => true, format: {with: /\A^[0-9]{10,10}$\Z/}
 
    has_many :transactions
+
+   def is_winner?
+    t = self.transactions.find {|t| t.is_winner?}
+    !t.nil?
+   end
+
 end
