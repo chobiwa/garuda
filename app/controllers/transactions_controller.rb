@@ -49,7 +49,7 @@ class TransactionsController < ApplicationController
       end
     end
 
-    transaction = customer.transactions.new date:Date.today
+    transaction = customer.transactions.new date: DateTime.now
     receipt_info.each do |receipt|
       store = Store.find_by_name(receipt["storeName"])
       if(store.nil?)
@@ -71,10 +71,19 @@ class TransactionsController < ApplicationController
       transaction.transaction_items.each do |ti|
         ti.errors.to_a.each do |e|
           if(e == "Item Receipt Taken")
-            errors << "Dupliacte Receipt #{ti.item_id}"
+            errors << "Duplicate Receipt #{ti.item_id}"
           end
         end
       end
+      
+      transaction.vouchers.each do |v|
+        v.errors.to_a.each do |e|
+          if(e == "Barcode number Voucher Taken")
+            errors << "Duplicate Voucher #{v.barcode_number}"
+          end
+        end
+      end
+
 
       render  :json => errors, :status => :bad_request
       return

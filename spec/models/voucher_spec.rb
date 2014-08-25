@@ -54,8 +54,8 @@ describe Voucher, :type => :model do
 
   	expect {
       voucher = transaction.vouchers.new barcode_number: "#123abc"
-      voucher.save
-  	}.to raise_error(ActiveRecord::RecordNotUnique)
+      voucher.save!
+  	}.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Barcode number Voucher Taken")
 
   	all_vouchers = Voucher.all
   	all_vouchers.length.should == 1
