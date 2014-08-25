@@ -4,6 +4,8 @@ var Transaction =  function(argument) {
 
   var reciptsDone = false;
   var customerDone = false;
+  var vouchersDisabled = false;
+  var stores = JSON.parse($("#AllStores").val());
 
   var disableReciptRow = function(num){
     $("#StoreName-"+num).attr('disabled','disabled');
@@ -24,13 +26,15 @@ var Transaction =  function(argument) {
     newRow.addClass('receipt-form');
     
     newRowNum = receiptRows + 1;
-    newRow.find(".store-name").attr("id","StoreName-"+newRowNum);
+    var storeName = newRow.find(".store-name");
+    storeName.attr("id","StoreName-"+newRowNum);
     newRow.find(".amount").attr("id","Amount-"+newRowNum); 
     newRow.find(".bill-no").attr("id","BillNo-"+newRowNum);
     var isToday =  newRow.find(".is-today");
     isToday.attr("id","isToday-"+newRowNum);
     bindToChange(isToday);
-
+    hookTypeahead(storeName);
+    newRow.validate();
     newRow.removeClass('hide');
   }
 
@@ -75,13 +79,57 @@ var Transaction =  function(argument) {
       newRow.removeClass('voucher-form-template');
       newRow.addClass('voucher-form');
       newRow.removeClass('hide');
+
     } 
     $("#VoucherDetailsSection").removeClass("hide");
   }
 
+  var substringMatcher = function(strs) {
+    return function findMatches(q, cb) {
+      var matches, substrRegex;
+      matches = [];
+      substrRegex = new RegExp(q, 'i');
+      $.each(strs, function(i, str) {
+        if (substrRegex.test(str)) {
+          matches.push({ value: str });
+        }
+      });
+      cb(matches);
+    };
+  };
+
+  var hookTypeahead = function(element) {
+    // return;
+    element.typeahead({
+      hint: false,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      name: 'stores',
+      displayKey: 'value',
+      source: substringMatcher(stores)
+    });
+  }
+
   var initReceipts = function(){
+    $(".receipt-form").validate({
+
+    });
     bindToChange($("#IsToday-1"));
     $("#DoneReceipts").click(function(){
+      
+      var isValid = true;
+      $(".receipt-form").each(function(){
+        $(this).find("input").each(function(){
+          if(!$(this).attr("disabled")){
+            isValid = $(this).valid() && isValid;
+          }
+        });
+      });
+
+      if(!isValid) return;
+
       $("#EditReceipts").removeClass("hide");
       $("#ReceiptForms").find(".rcontrol").attr('disabled','disabled');
       generateVoucherFields();
@@ -100,34 +148,42 @@ var Transaction =  function(argument) {
       enableDisableSaveButton();
     });
 
-    $('.typeahead').typeahead({
-      hint: false,
-      highlight: true,
-      minLength: 1
-    },
-    {
-      name: 'stores',
-      displayKey: 'value',
-      source: function(q, cb){return cb([]);},
-      templates: {
-          empty: [
-            '<div class="empty-message">',
-            'unable to find any Best Picture winners that match the current query',
-            '</div>'
-          ].join('\n')
-        }
-    });
+    hookTypeahead($('.typeahead'));
   }
 
-  var stores = [{value: "Foo"},{value: "bar"}, {value: "baz"}];
+  var disableVouchersForWinner = function(){
+    vouchersDisabled = true;
+    $(".voucher-code").attr("disabled","disabled"); 
+  }
+
+  var enableVouchers = function(){
+    $(".voucher-code").removeAttr("disabled"); 
+  }
+
+  var resetCustomerForm = function(){
+    vouchersDisabled = false;
+    enableVouchers();
+    $(".name").val("");
+    $(".email").val("");
+    $(".gender").val("");
+    $(".age").val("");
+    $(".occupation").val("");
+    $(".address").val("");
+  }
 
   var initCustomer = function(){
     $("#GetCustomer").click(function(){
+      resetCustomerForm();
+      
       $.ajax({
         type: "GET",
         url: "/customers/"+$(".mobile").val().trim(),
         success: function(data){
           console.log(data);
+          var isWinner = data["is_winner?"];
+          if(isWinner) {
+            disableVouchersForWinner();
+          }
           $(".name").val(data["name"]);
           $(".email").val(data["email"]);
           $(".gender").val(data["gender"]);
@@ -159,6 +215,11 @@ var Transaction =  function(argument) {
   }
 
   self.init = function(){
+      $.validator.addMethod("store-name", function(value, element) {
+        return ($.inArray(value, stores) != -1);
+      }, "Enter valid store name.");
+
+
       initReceipts();
       initCustomer();
       $("#Reset").click(function(){location.reload();});
@@ -191,12 +252,14 @@ var Transaction =  function(argument) {
           "address": $(".address").val()
         }
 
-        var voucherInfo = []
-        var voucherForms = $(".voucher-form");
-        $(voucherForms).each(function(){
-          var voucherCode =  $(this).find(".voucher-code").val(); 
-          voucherInfo.push({"barCode": voucherCode});
-        });
+        if(!vouchersDisabled) {
+          var voucherInfo = []
+          var voucherForms = $(".voucher-form");
+          $(voucherForms).each(function(){
+            var voucherCode =  $(this).find(".voucher-code").val(); 
+            voucherInfo.push({"barCode": voucherCode});
+          });
+        }
 
         
         var transactionInfo = {
@@ -220,6 +283,7 @@ var Transaction =  function(argument) {
         })
 
       });
+     
   }
     
 }

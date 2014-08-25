@@ -7,6 +7,7 @@ class CustomersController < ApplicationController
       render :nothing => true, :status => :not_found
       return
     end
-    render :json => c
+    json = c.to_json ({:methods => :is_winner?})
+    render :json => json
   end
 end

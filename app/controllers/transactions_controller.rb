@@ -1,6 +1,7 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user! 
   def new
+    @stores = Store.all.map {|s| s.name}
   end
 
   def create
@@ -63,7 +64,8 @@ class TransactionsController < ApplicationController
     end
 
     customer.save!
-    
+
+        
     render :nothing => true
   end
 end

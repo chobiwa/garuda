@@ -18,22 +18,21 @@
                 </div>
                 <div class="col-xs-2">
                   <div class="input-group">
-                    <input id="StoreName-1" type="text" class="form-control store-name rcontrol typeahead" placeholder="Store Name" disabled="disabled">
+                    <input id="StoreName-1" type="text" class="form-control store-name rcontrol typeahead" placeholder="Store Name" disabled="disabled" required />
                   </div>
                 </div>
                 <div class="col-xs-2">
                   <div class="input-group">
-                    <input id="BillNo-1" type="text" class="form-control bill-no rcontrol" placeholder="Bill No" disabled="disabled">
+                    <input id="BillNo-1" type="text" class="form-control bill-no rcontrol" placeholder="Bill No" disabled="disabled" required />
                   </div>
                 </div>
                 <div class="col-xs-2">
                   <div class="input-group">
-                    <input id="Amount-1" type="text" class="form-control amount rcontrol" placeholder="Amount" disabled="disabled">
+                    <input id="Amount-1" type="number" class="form-control amount rcontrol" placeholder="Amount" disabled="disabled" required/>
                   </div>
                 </div>
             </div>
         </form>
-        
     </div>
 
   </section>
@@ -54,17 +53,17 @@
           </div>
           <div class="col-xs-2">
             <div class="input-group">
-              <input type="text" class="form-control store-name rcontrol typeahead" placeholder="Store Name" disabled="disabled">
+              <input type="text" class="form-control store-name rcontrol typeahead" placeholder="Store Name" disabled="disabled" required />
             </div>
           </div>
           <div class="col-xs-2">
             <div class="input-group">
-              <input type="text" class="form-control bill-no rcontrol" placeholder="Bill No" disabled="disabled">
+              <input type="text" class="form-control bill-no rcontrol" placeholder="Bill No" disabled="disabled" required />
             </div>
           </div>
           <div class="col-xs-2">
             <div class="input-group">
-              <input type="text" class="form-control amount rcontrol" placeholder="Amount" disabled="disabled">
+              <input type="number" class="form-control amount rcontrol" placeholder="Amount" disabled="disabled" required/>
             </div>
           </div>
       </div>
@@ -162,12 +161,12 @@
 <br />
 <br />
 
-
 <div class="row" style="margin-bottom: 100px;">
   <button id="Save" class="btn btn-large btn-primary col-lg-2" type="button" disabled="disabled">Save Details</button>
   <button id="Reset" class="btn btn-large btn-danger col-lg-2" style="margin-left: 25px;" type="button">Reset</button>
 </div>
 
+<input type="hidden" id="AllStores" value="<%= @stores.to_json%>">
 
 
 
