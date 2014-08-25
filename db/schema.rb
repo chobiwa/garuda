@@ -65,5 +65,6 @@ ActiveRecord::Schema.define(version: 20140825041939) do
   end
 
   add_index "vouchers", ["barcode_number"], name: "index_vouchers_on_barcode_number", unique: true, using: :btree
+  add_index "vouchers", ["win_date"], name: "index_vouchers_on_win_date", unique: true, using: :btree
 
 end
