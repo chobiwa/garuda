@@ -6,6 +6,9 @@ describe TransactionsController do
     store = Store.create name:"Cookie Jar"
     store = Store.create name:"Monkey Bar"
     store = Store.create name:"Donkey Car"
+    user =  User.new(:email => 'mln@tws.com', :password => 'password', :password_confirmation => 'password', :name => "MLN Krishnan")
+    user.save!
+    sign_in user
   end
   
   it "Creates a transaction with one receipt" do

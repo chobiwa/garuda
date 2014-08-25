@@ -57,7 +57,7 @@ Rails.application.routes.draw do
 
   resources :transactions, :only => [:create, :new]
   resources :customers, :only => :show
-  # resources :sessions, :only => [:new, :create, :destroy]
+  resources :winners, :only => [:new,:create]
 
 
 

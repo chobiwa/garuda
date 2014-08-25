@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140824070803) do
+ActiveRecord::Schema.define(version: 20140825041939) do
 
   create_table "customers", force: true do |t|
     t.string  "name",       null: false
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(version: 20140824070803) do
   create_table "vouchers", force: true do |t|
     t.string  "barcode_number", null: false
     t.integer "transaction_id", null: false
+    t.boolean "winner"
+    t.date    "win_date"
   end
 
   add_index "vouchers", ["barcode_number"], name: "index_vouchers_on_barcode_number", unique: true, using: :btree

@@ -16,6 +16,23 @@ describe Voucher, :type => :model do
   	expected_voucher.barcode_number.should == '#123abc'
   end
 
+
+  it "should mark a voucher as a winning vocuher" do 
+    cust = Customer.new(name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78)
+    transaction = cust.transactions.new date:'2012-03-14'
+    cust.save!
+    voucher = transaction.vouchers.new barcode_number: "#123abc"
+    voucher.save
+
+    v = Voucher.first
+    v.mark_as_winner
+    v.save!
+
+    v = Voucher.first
+    v.is_winner.should == true
+    v.win_date.should == Date.today
+  end
+
   it "should ensure presence of barcode_number" do
   	cust = Customer.new(name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78)
     transaction = cust.transactions.new date:'2012-03-14'
