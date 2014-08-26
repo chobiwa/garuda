@@ -62,16 +62,10 @@ var Transaction =  function(argument) {
       $("#Save").attr('disabled','disabled');
     }
   }
-  var generateVoucherFields = function(){
+  var generateVoucherFields = function(total){
     voucherForms = $("#VoucherForms");
     voucherForms.empty();
-    var total = 0;
-    $(".amount").each(function(){
-      var value = $(this).val().trim();
-      if( value != "" && !($(this).attr("disabled") == "disabled") ){
-        total = total + parseInt(value);  
-      }
-    });
+   
     var numRows = parseInt(total /1000);
     for (var i = 0; i < numRows; i++) {
       var newRow = $($(".voucher-form-template").clone());
@@ -81,7 +75,19 @@ var Transaction =  function(argument) {
       newRow.removeClass('hide');
 
     } 
+    
     $("#VoucherDetailsSection").removeClass("hide");
+  }
+
+  var generateTotal = function(){
+    var total = 0;
+    $(".amount").each(function(){
+      var value = $(this).val().trim();
+      if( value != "" && !($(this).attr("disabled") == "disabled") ){
+        total = total + parseInt(value);  
+      }
+    });
+    return total;
   }
 
   var substringMatcher = function(strs) {
@@ -115,7 +121,10 @@ var Transaction =  function(argument) {
   var initReceipts = function(){
     bindToChange($("#IsToday-1"));
     $("#DoneReceipts").click(function(){
-      
+      $("#TotalLess").addClass("hide");
+      var total = generateTotal();
+      $("#Total").empty();
+      $("#Total").html(total);
       var isValid = true;
       $(".receipt-form").each(function(){
         $(this).find("input").each(function(){
@@ -124,11 +133,19 @@ var Transaction =  function(argument) {
           }
         });
       });
+      if(total < 1000){
+        $("#TotalLess").removeClass("hide");
+        // $("#TotalLess").show();
+        isValid = false;
+      }
 
       if(!isValid) return;
 
       $("#EditReceipts").removeClass("hide");
-      generateVoucherFields();
+      
+      generateVoucherFields(total);
+      
+
       $("#ReceiptForms").find(".rcontrol").attr('disabled','disabled');
       $(this).addClass("hide");
       reciptsDone = true;
@@ -191,7 +208,7 @@ var Transaction =  function(argument) {
           $("#CustomerData").removeClass("hide");
         },
         error: function(data){
-          $("#CustomerData").removeClass("hide");
+          $("#CustomerData").show();
         },
       })
     });

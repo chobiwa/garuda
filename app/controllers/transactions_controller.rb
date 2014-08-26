@@ -71,7 +71,7 @@ class TransactionsController < ApplicationController
       transaction.transaction_items.each do |ti|
         ti.errors.to_a.each do |e|
           if(e == "Item Receipt Taken")
-            errors << "Duplicate Receipt #{ti.item_id}"
+            errors << "Duplicate Purchase, Bill No: #{ti.item_id}"
           end
         end
       end
@@ -79,7 +79,7 @@ class TransactionsController < ApplicationController
       transaction.vouchers.each do |v|
         v.errors.to_a.each do |e|
           if(e == "Barcode number Voucher Taken")
-            errors << "Duplicate Voucher #{v.barcode_number}"
+            errors << "Duplicate Coupon, Coupon Code: #{v.barcode_number}"
           end
         end
       end
