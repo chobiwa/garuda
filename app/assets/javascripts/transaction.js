@@ -68,7 +68,7 @@ var Transaction =  function(argument) {
     var total = 0;
     $(".amount").each(function(){
       var value = $(this).val().trim();
-      if(value != ""){
+      if( value != "" && !($(this).attr("disabled") == "disabled") ){
         total = total + parseInt(value);  
       }
     });
@@ -128,8 +128,8 @@ var Transaction =  function(argument) {
       if(!isValid) return;
 
       $("#EditReceipts").removeClass("hide");
-      $("#ReceiptForms").find(".rcontrol").attr('disabled','disabled');
       generateVoucherFields();
+      $("#ReceiptForms").find(".rcontrol").attr('disabled','disabled');
       $(this).addClass("hide");
       reciptsDone = true;
       enableDisableSaveButton();
