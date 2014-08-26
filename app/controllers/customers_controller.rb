@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
-  before_action :require_admin_login
+  before_action :require_admin_login, only: :index
+  before_action :authenticate_user! 
 
   def show
     mobile = params[:id]
