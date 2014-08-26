@@ -1,5 +1,5 @@
 class TransactionItemsController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :require_admin_login
 
   def index
     @transaction_items = TransactionItem.all

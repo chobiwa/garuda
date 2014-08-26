@@ -22,7 +22,7 @@ user = User.new(:email => 'user2@email.com', :password => 'password', :password_
 user.save!
 user = User.new(:email => 'user3@email.com', :password => 'password', :password_confirmation => 'password', :name => "User2")
 user.save!
-user = User.new(:email => 'garudaevent@siiplconsulting.com', :password => 'garuda@123', :password_confirmation => 'garuda@123', :name => "Garuda Event")
+user = User.new(:email => 'admin@siiplconsulting.com', :password => 'garuda@admin@123', :password_confirmation => 'garuda@admin@123', :name => "Garuda Event Admin", :role => "admin")
 user.save!
 
 

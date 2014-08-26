@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+  before_action :require_admin_login, only: :index
   before_action :authenticate_user! 
   
   def new

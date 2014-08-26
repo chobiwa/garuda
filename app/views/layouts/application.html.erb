@@ -44,11 +44,11 @@
       <div class="container">
         <a class="navbar-brand" href="/">XXXXX</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <% if user_signed_in? %>
+        <% if user_signed_in? and current_user.admin? %>
           <ul class="nav navbar-nav">
-            <li><%= link_to "Select Winner", new_winner_path%></li>
             <li><%= link_to "Reports", reports_path%></li>
             <li><%= link_to "Customers", customers_path%></li>
+            <li><%= link_to "Select Winner", new_winner_path%></li>
           </ul>
         <%end%>
         <ul class="nav navbar-nav pull-right">
