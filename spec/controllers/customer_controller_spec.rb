@@ -1,6 +1,12 @@
 require "rails_helper"
 
 describe CustomersController do
+  before(:each) do
+    user =  User.new(:email => 'mln@tws.com', :password => 'password', :password_confirmation => 'password', :name => "MLN Krishnan")
+    user.save!
+    sign_in user
+  end
+
 
   it "Creates a transaction with one receipt" do
     Customer.create! name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78

@@ -7,4 +7,15 @@ class TransactionItem < ActiveRecord::Base
 	validates :amount, :date, :item_id, :presence => true
 
   validates_uniqueness_of :item_id, :scope => :store_id, :message => "Receipt Taken"
+
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv <<  column_names
+      all.each do |c|
+         v = c.attributes.values_at(*column_names)
+        csv << v
+      end
+    end
+  end
+
 end

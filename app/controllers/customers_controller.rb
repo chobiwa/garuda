@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+  before_action :authenticate_user! 
 
   def show
     mobile = params[:id]
@@ -9,5 +10,13 @@ class CustomersController < ApplicationController
     end
     json = c.to_json ({:methods => :is_winner?})
     render :json => json
+  end
+
+  def index
+    @customers = Customer.all
+    respond_to do |format|
+      format.html
+      format.csv { send_data @customers.to_csv }
+    end
   end
 end

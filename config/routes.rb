@@ -55,10 +55,12 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  resources :transactions, :only => [:create, :new]
-  resources :customers, :only => :show
+  resources :transactions, :only => [:create, :new, :index]
+  resources :transaction_items, :only => [:index]
+  resources :vouchers, :only => [:index]
+  resources :customers, :only => [:index,:show]
   resources :winners, :only => [:new,:create]
-
+  get "/reports" => "reports#index", as: :reports
 
 
 end

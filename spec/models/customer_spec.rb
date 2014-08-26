@@ -74,5 +74,27 @@ describe Customer, :type => :model do
     expected_customer.gender.should == nil
     expected_customer.age.should == nil
   end
+
+  it "should get total amount spent by a customer" do
+      store = Store.new name: 'MAX'
+      store.save!
+
+      cust = Customer.new(name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78)
+      trans = cust.transactions.new(date: DateTime.now)
+      item = trans.transaction_items.new(item_id: "122ABC", store: store, amount: 1000, date: '2012-03-04')
+      item = trans.transaction_items.new(item_id: "122ABD", store: store, amount: 1200, date: '2012-03-04')
+      item = trans.transaction_items.new(item_id: "122ABE", store: store, amount: 4000, date: '2012-03-04')
+
+      trans = cust.transactions.new(date: DateTime.now)
+      item = trans.transaction_items.new(item_id: "122ABF", store: store, amount: 1000, date: '2012-03-04')
+      item = trans.transaction_items.new(item_id: "122ABG", store: store, amount: 1200, date: '2012-03-04')
+      item = trans.transaction_items.new(item_id: "122ABH", store: store, amount: 900, date: '2012-03-04')
+
+      cust.save!    
+
+      c = Customer.first
+
+      c.total_spent.should == 9300
+  end
   
 end

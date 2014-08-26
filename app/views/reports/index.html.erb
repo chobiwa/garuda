@@ -1,0 +1,26 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Report Name</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Customers With Total Purchase Amount</td>
+      <td><a href="<%= customers_path(:format => 'csv')%>">Download Customers</a></td>
+    </tr>
+    <tr>
+      <td>All Transactions</td>
+      <td><a href="<%= transactions_path(:format => 'csv')%>">Download Transactions</a></td>
+    </tr>
+    <tr>
+      <td>All Purchases</td>
+      <td><a href="<%= transaction_items_path(:format => 'csv')%>">Download Purchases</a></td>
+    </tr>
+    <tr>
+      <td>All Coupons</td>
+      <td><a href="<%= vouchers_path(:format => 'csv')%>">Download Coupons</a></td>
+    </tr>
+  </tbody>
+</table>

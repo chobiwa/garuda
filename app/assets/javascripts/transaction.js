@@ -142,6 +142,7 @@ var Transaction =  function(argument) {
       if(!isValid) return;
 
       $("#EditReceipts").removeClass("hide");
+      $(".mobile").focus();
       
       generateVoucherFields(total);
       
@@ -208,7 +209,7 @@ var Transaction =  function(argument) {
           $("#CustomerData").removeClass("hide");
         },
         error: function(data){
-          $("#CustomerData").show();
+          $("#CustomerData").removeClass("hide");
         },
       })
     });
@@ -230,7 +231,8 @@ var Transaction =  function(argument) {
       $(this).addClass("hide");
       customerDone = true;
       enableDisableSaveButton();
-    })
+    });
+
     $("#EditCustomer").click(function(){
       $("#DoneCustomer").removeClass("hide");
       $(".ccontrol").removeAttr('disabled');
