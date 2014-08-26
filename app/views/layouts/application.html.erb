@@ -42,7 +42,9 @@
 
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
-        <a class="navbar-brand" href="/">XXXXX</a>
+        <a class="navbar-brand" href="/">
+          <%= image_tag "strategic_interventions.png", :style=>"height:23px;" %>
+        </a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
         <% if user_signed_in? and current_user.admin? %>
           <ul class="nav navbar-nav">
