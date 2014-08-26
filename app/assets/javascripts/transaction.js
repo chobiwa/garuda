@@ -72,7 +72,7 @@ var Transaction =  function(argument) {
         total = total + parseInt(value);  
       }
     });
-    var numRows = total /1000;
+    var numRows = parseInt(total /1000);
     for (var i = 0; i < numRows; i++) {
       var newRow = $($(".voucher-form-template").clone());
       newRow.appendTo(voucherForms);
