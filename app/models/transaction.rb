@@ -20,6 +20,10 @@ class Transaction < ActiveRecord::Base
     self.vouchers.map {|v| v.barcode_number}
   end
 
+  def vouchers_length
+    self.vouchers.length
+  end
+
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       columns = column_names + ["total"]
