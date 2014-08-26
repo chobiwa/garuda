@@ -194,6 +194,7 @@ var Transaction =  function(argument) {
       $.ajax({
         type: "GET",
         url: "/customers/"+$(".mobile").val().trim(),
+        cache: false,
         success: function(data){
           console.log(data);
           var isWinner = data["is_winner?"];
