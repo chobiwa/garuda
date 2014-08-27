@@ -8,4 +8,17 @@ class VouchersController < ApplicationController
       format.csv { send_data @vouchers.to_csv }
     end
   end
+
+  def show
+    id = params[:id]
+    @voucher = Voucher.find_by_barcode_number id
+    if(@voucher.nil?)
+      flash[:error] = "Coupon #{id} doesn't exist"
+      redirect_to vouchers_path
+      return
+    end
+    @transaction = @voucher.transact
+    @transaction_items = @transaction.transaction_items
+    @customer = @transaction.customer
+  end
 end
