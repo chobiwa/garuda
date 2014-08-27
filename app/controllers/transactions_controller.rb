@@ -70,7 +70,7 @@ class TransactionsController < ApplicationController
     end
     
     voucher_info.each do |voucher|
-      transaction.vouchers.new(barcode_number: voucher["barCode"])
+      transaction.vouchers.new(barcode_number: voucher["barCode"].strip)
     end
 
     begin
