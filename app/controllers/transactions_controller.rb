@@ -100,7 +100,7 @@ class TransactionsController < ApplicationController
     end
     
 
-    flash[:notice] = "Transaction saved."    
+    flash[:notice] = "Transaction saved. Transaction Id = #{transaction.id}"    
     render :nothing => true
   end
 end
