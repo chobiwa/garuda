@@ -26,10 +26,10 @@ class Transaction < ActiveRecord::Base
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
-      columns = column_names + ["total"]
+      columns = ["id"] + ["date"] + ["customer_id"] + ["total"]
       csv <<  columns
       all.each do |c|
-         v = c.attributes.values_at(*column_names) + [c.total_amount]
+         v = [c.id] + [c.date.localtime.strftime("%Y-%m-%d %H:%M:%S")] +[c.customer_id] + [c.total_amount]
         csv << v
       end
     end

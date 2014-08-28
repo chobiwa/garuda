@@ -31,7 +31,7 @@
     <tr>
       <td><%= @transaction.id %></td>
       <td><%= @transaction.total_amount %></td>
-      <td><%= @transaction.date.strftime("%F")%></td>
+      <td><%= @transaction.date.utc.localtime.strftime("%Y-%m-%d %H:%M:%S")%></td>
     </tr>
   </tbody>
 </table>
