@@ -32,6 +32,17 @@ class TransactionsController < ApplicationController
     end
 
 
+    errors = []
+    duplicate_vouchers = voucher_info.group_by {|v| v["barCode"]}.select { |k,v| v.size > 1}.keys
+    duplicate_vouchers.each do |v|
+      errors << "Duplicate Vouchers entered! Voucher No: #{v}"
+    end
+    if (errors.length > 0)
+      render  :json => errors, :status => :bad_request
+      return
+    end
+
+
     customer = Customer.find_by_mobile(customer_info["mobile"])
     if(customer.nil?)
       customer = Customer.new(name: customer_info["name"], email: customer_info["email"], mobile: customer_info["mobile"], address: customer_info["address"], occupation: customer_info["occupation"], gender: customer_info["gender"], age: customer_info["age"])

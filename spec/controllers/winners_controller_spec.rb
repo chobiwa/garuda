@@ -3,10 +3,11 @@ require "rails_helper"
 describe WinnersController do
 
   before(:each) do
+
     store = Store.create name:"Cookie Jar"
     store = Store.create name:"Monkey Bar"
     store = Store.create name:"Donkey Car"
-    user =  User.new(:email => 'mln@tws.com', :password => 'password', :password_confirmation => 'password', :name => "MLN Krishnan")
+    user =  User.new(:email => 'mln@tws.com', :password => 'password', :password_confirmation => 'password', :name => "MLN Krishnan", :role => "admin")
     user.save!
     sign_in user
   end

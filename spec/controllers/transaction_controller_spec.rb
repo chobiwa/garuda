@@ -230,6 +230,21 @@ describe TransactionsController do
     expect(response).to have_http_status(:bad_request)
   end
 
+  it "should not issue the same voucher to a customer more than once" do
+    post :create, '{"receiptInfo":[
+                        {"storeName":"Cookie Jar","amount":"1000","billNo":"AWE","isToday":true}
+                    ],
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "voucherInfo":[
+                        {"barCode":"QWEEW"},{"barCode":"QWEEW"}
+                    ]}'
+
+   
+    expect(response).to have_http_status(:bad_request)
+
+  end
+
+
   it "should update transaction details for winning customers" do
     post :create, '{"receiptInfo":[
                         {"storeName":"Cookie Jar","amount":"1000","billNo":"AWE","isToday":true}

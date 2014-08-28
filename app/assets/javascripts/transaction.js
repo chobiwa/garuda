@@ -83,6 +83,7 @@ var Transaction =  function(argument) {
     var total = 0;
     $(".amount").each(function(){
       var value = $(this).val().trim();
+
       if( value != "" && !($(this).attr("disabled") == "disabled") ){
         total = total + parseInt(value);  
       }
@@ -296,7 +297,7 @@ var Transaction =  function(argument) {
           var voucherForms = $(".voucher-form");
           $(voucherForms).each(function(){
             var voucherCode =  $(this).find(".voucher-code").val(); 
-            voucherInfo.push({"barCode": voucherCode});
+            voucherInfo.push({"barCode": voucherCode.trim()});
           });
         }
 
