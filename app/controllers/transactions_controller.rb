@@ -9,6 +9,10 @@ class TransactionsController < ApplicationController
   def show
     trans_id = params[:id]
     @transaction = Transaction.find_by_id(trans_id)
+    if(@transaction.nil?)
+      render :nothing => true, :status => :not_found
+      return
+    end
     @vouchers = @transaction.vouchers
     @transaction_items = @transaction.transaction_items
     if(@transaction_items.nil?)
