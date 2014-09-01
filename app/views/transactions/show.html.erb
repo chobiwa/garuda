@@ -5,7 +5,6 @@
       <th>Id</th>
       <th>Total Amount</th>
       <th>Date</th>
-      <th>Vouchers</th>
     </tr>
   </thead>
   <tbody>
@@ -13,7 +12,42 @@
       <td><%= @transaction.id %></td>
       <td><%= @transaction.total_amount %></td>
       <td><%= @transaction.date.utc.localtime.strftime("%Y-%m-%d %H:%M:%S")%></td>
-      <td><%= @vouchers.map(&:barcode_number).join(", ") %></td>
+    </tr>
+  </tbody>
+</table>
+<h4 style="margin-top:50px;">Stores Details</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Store Name</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @transaction_items.each do |ti| %>
+      <tr>
+      <td><%= ti.store.name %></td>
+      <td><%= ti.amount %> </td></tr>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+<h4 style="margin-top:50px;">Voucher Details</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Voucher Id</th>
+      <th>Barcode NUmber</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @vouchers.each do |v| %>
+      <tr>
+      <td><%= v.id %></td>
+      <td><%= v.barcode_number %> </td></tr>
+      <% end %>
     </tr>
   </tbody>
 </table>
