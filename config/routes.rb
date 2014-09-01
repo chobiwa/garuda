@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   resources :vouchers, :only => [:index, :show]
   resources :customers, :only => [:index,:show]
   resources :winners, :only => [:new,:create]
+  resources :stores, :only => [:show]
   get "/reports" => "reports#index", as: :reports
 
 

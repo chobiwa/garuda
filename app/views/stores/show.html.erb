@@ -1,0 +1,16 @@
+<h4 style="margin-top:50px;">Store Details</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Transaction Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @transaction_items.each do |tr| %>
+      <tr>
+      <td><%= link_to tr.transaction_id ,transaction_path(tr.transaction_id)%></td></tr>
+      <% end %>
+    </tr>
+  </tbody>
+</table>

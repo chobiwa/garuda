@@ -27,7 +27,7 @@
     <tr>
       <% @transaction_items.each do |ti| %>
       <tr>
-      <td><%= ti.store.name %></td>
+      <td><%= link_to ti.store.name, store_path(ti.store.id), :format => 'html'%></td>
       <td><%= ti.amount %> </td></tr>
       <% end %>
     </tr>
