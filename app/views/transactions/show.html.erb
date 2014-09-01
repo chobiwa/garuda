@@ -1,0 +1,19 @@
+<h4 style="margin-top:50px;">Transaction Details</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Total Amount</th>
+      <th>Date</th>
+      <th>Vouchers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @transaction.id %></td>
+      <td><%= @transaction.total_amount %></td>
+      <td><%= @transaction.date.utc.localtime.strftime("%Y-%m-%d %H:%M:%S")%></td>
+      <td><%= @vouchers.map(&:barcode_number).join(", ") %></td>
+    </tr>
+  </tbody>
+</table>

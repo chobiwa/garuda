@@ -6,6 +6,16 @@ class TransactionsController < ApplicationController
     @stores = Store.all.map {|s| s.name}
   end
 
+  def show
+    trans_id = params[:id]
+    @transaction = Transaction.find_by_id(trans_id)
+    @vouchers = @transaction.vouchers
+    if(@transaction.nil?)
+      render :nothing => true, :status => :not_found
+      return
+    end
+  end
+
   def index
     @transactions = Transaction.all
     respond_to do |format|

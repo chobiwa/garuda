@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  resources :transactions, :only => [:create, :new, :index]
+  resources :transactions, :only => [:create, :new, :index, :show]
   resources :transaction_items, :only => [:index]
   resources :vouchers, :only => [:index, :show]
   resources :customers, :only => [:index,:show]

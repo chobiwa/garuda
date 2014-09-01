@@ -28,7 +28,7 @@
   <tbody>
     <% @t.each do |t| %>
     <tr>
-      <td><%= t.id %></td>
+      <td><%= link_to t.id, transaction_path(t.id), :format => 'html' %></td>
       <td><%= t.total_amount %></td>
     </tr>
     <%end%>
