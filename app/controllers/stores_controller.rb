@@ -4,8 +4,6 @@ class StoresController < ApplicationController
 
   def show
      store_id = params[:id]
-     @transaction_items = TransactionItem.where store_id: 84
-     #@transaction = Transaction.find_by_id(@transaction_items.transaction_id)
-     # @transaction = @transaction_items.transact
+     @transaction_items = TransactionItem.where store_id: store_id
   end
 end

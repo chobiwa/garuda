@@ -2,14 +2,19 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>Bill Number</th>
       <th>Transaction Id</th>
+      <th>Date of transaction</th>
+      <th>Bill Amount</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <% @transaction_items.each do |tr| %>
-      <tr>
-      <td><%= link_to tr.transaction_id ,transaction_path(tr.transaction_id)%></td></tr>
+      <tr><td><%= tr.item_id %></td>
+      <td><%= link_to tr.transaction_id, transaction_path(tr.transaction_id) %></td>
+      <td><%= tr.date %></td>
+      <td><%= tr.amount %></td></tr>
       <% end %>
     </tr>
   </tbody>
