@@ -9,6 +9,7 @@ class StoresController < ApplicationController
       render :nothing => true, :status => :not_found
       return
     end
-     @transaction_items = TransactionItem.where store_id: store_id
+     @transaction_items = TransactionItem.where(store_id: store_id).paginate(:page => params[:page], :per_page => 20)
+
   end
 end

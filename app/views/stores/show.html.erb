@@ -1,4 +1,4 @@
-<h4 style="margin-top:50px;">Store Details</h4>
+<h4 style="margin-top:50px;"><%= @store.name %></h4>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -16,6 +16,7 @@
       <td><%= tr.date %></td>
       <td><%= tr.amount %></td></tr>
       <% end %>
+      <%= will_paginate @transaction_items %>
     </tr>
   </tbody>
 </table>
