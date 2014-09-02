@@ -59,8 +59,7 @@ ActiveRecord::Schema.define(version: 20140902053831) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   create_table "voucher_masters", force: true do |t|
-    t.string  "barcode_number",                 null: false
-    t.boolean "is_allocated",   default: false
+    t.string "barcode_number", null: false
   end
 
   create_table "vouchers", force: true do |t|

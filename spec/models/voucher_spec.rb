@@ -1,8 +1,13 @@
 require "rails_helper"
 
 describe Voucher, :type => :model do
+  before(:each) do
+    VoucherMaster.create! barcode_number: '#123abc'
+    VoucherMaster.create! barcode_number: '#123pqr'
+    VoucherMaster.create! barcode_number: '#123xyz'
+  end
 
-  it "should create a Voucher" do
+  it "should create a Voucher which exists in valid vouchers list" do
     cust = Customer.new(name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78)
     transaction = cust.transactions.new date:'2012-03-14'
     cust.save!
@@ -14,6 +19,18 @@ describe Voucher, :type => :model do
   	all_vouchers.length.should == 1
   	expected_voucher = all_vouchers.first
   	expected_voucher.barcode_number.should == '#123abc'
+  end
+
+  it "should not create a Voucher which does not exists in valid vouchers list" do
+    cust = Customer.new(name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78)
+    transaction = cust.transactions.new date:'2012-03-14'
+    cust.save!
+    voucher = transaction.vouchers.new barcode_number: "invalid"
+    voucher.save
+
+    all_vouchers = Voucher.all
+
+    all_vouchers.length.should == 0
   end
 
 
@@ -43,6 +60,7 @@ describe Voucher, :type => :model do
   	all_vouchers = Voucher.all
 
   	all_vouchers.length.should == 0
+
   end
 
   it "should ensure uniqueness of barcode_number" do
@@ -65,7 +83,7 @@ describe Voucher, :type => :model do
 
   it "should ensure presence of a transaction" do
     expect {
-      voucher = Voucher.new barcode_number: "#different"
+      voucher = Voucher.new barcode_number: "#123abc"
       voucher.save!
     }.to raise_error(ActiveRecord::StatementInvalid)
   end

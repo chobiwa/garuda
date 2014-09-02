@@ -83,6 +83,7 @@ class TransactionsController < ApplicationController
     if(not customer.is_winner?)
       no_of_vouchers_to_issue = total_receipt_value / 1000
 
+    
       if(voucher_info.length != no_of_vouchers_to_issue)
         render :nothing => true, :status => 400
         return
@@ -120,6 +121,15 @@ class TransactionsController < ApplicationController
         v.errors.to_a.each do |e|
           if(e == "Barcode number Voucher Taken")
             errors << "Duplicate Coupon, Coupon Code: #{v.barcode_number}"
+          end
+        end
+      end
+
+
+      transaction.vouchers.each do |v|
+        v.errors.to_a.each do |e|
+          if(e == "Voucher master Invalid Voucher")
+            errors << "Invalid Coupon, Coupon Code: #{v.barcode_number}"
           end
         end
       end

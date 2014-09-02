@@ -6,6 +6,18 @@ describe TransactionsController do
     store = Store.create name:"Cookie Jar"
     store = Store.create name:"Monkey Bar"
     store = Store.create name:"Donkey Car"
+    voucher =  VoucherMaster.new(:barcode_number => 'QWEEW')
+    voucher.save!
+    voucher =  VoucherMaster.new(:barcode_number => '1')
+    voucher.save!
+    voucher =  VoucherMaster.new(:barcode_number => '2')
+    voucher.save!
+    voucher =  VoucherMaster.new(:barcode_number => '3')
+    voucher.save!
+    voucher =  VoucherMaster.new(:barcode_number => '4')
+    voucher.save!
+    voucher =  VoucherMaster.new(:barcode_number => '5')
+    voucher.save!
     user =  User.new(:email => 'mln@tws.com', :password => 'password', :password_confirmation => 'password', :name => "MLN Krishnan")
     user.save!
     sign_in user
@@ -223,7 +235,7 @@ describe TransactionsController do
                     ],
                     "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
                     "voucherInfo":[
-                        {"barCode":"WERTY"}
+                        {"barCode":"1"}
                     ]}'
 
 

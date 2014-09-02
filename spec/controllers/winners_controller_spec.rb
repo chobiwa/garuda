@@ -3,7 +3,8 @@ require "rails_helper"
 describe WinnersController do
 
   before(:each) do
-
+    VoucherMaster.create! barcode_number: '#123abc'
+    VoucherMaster.create! barcode_number: '#123qwe'
     store = Store.create name:"Cookie Jar"
     store = Store.create name:"Monkey Bar"
     store = Store.create name:"Donkey Car"
