@@ -17,7 +17,7 @@ describe Voucher, :type => :model do
   end
 
 
-  it "should mark a voucher as a winning vocuher" do 
+  it "should mark an existing voucher as a winning vocuher" do 
     cust = Customer.new(name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78)
     transaction = cust.transactions.new date:'2012-03-14'
     cust.save!
