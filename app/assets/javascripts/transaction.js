@@ -232,6 +232,7 @@ var Transaction =  function(argument) {
       $(".ccontrol").attr('disabled','disabled');
       $(this).addClass("hide");
       customerDone = true;
+      ($(".vcontrol")[0]).focus();
       enableDisableSaveButton();
     });
 
