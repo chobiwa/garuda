@@ -1,4 +1,4 @@
-<h4 style="margin-top:50px;">Transaction Details</h4>
+<h4>Transaction Details</h4>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -15,11 +15,31 @@
     </tr>
   </tbody>
 </table>
+
+<h4 style="margin-top:50px;">Customer Details</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Mobile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%=@transaction.customer.id %></td>
+      <td><%= link_to @transaction.customer.name, customer_path(@transaction.customer.mobile), :format => 'html' %></td>
+      <td><%=@transaction.customer.mobile%></td>
+    </tr>
+  </tbody>
+</table>
+
 <h4 style="margin-top:50px;">Stores Details</h4>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Store Name</th>
+      <th>Bill No</th>
       <th>Amount</th>
     </tr>
   </thead>
@@ -28,6 +48,7 @@
       <% @transaction_items.each do |ti| %>
       <tr>
       <td><%= link_to ti.store.name, store_path(ti.store.id), :format => 'html'%></td>
+      <td><%= ti.item_id%></td>
       <td><%= ti.amount %> </td></tr>
       <% end %>
     </tr>

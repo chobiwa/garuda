@@ -12,7 +12,7 @@
   <tbody>
     <tr>
       <td><%= @customer.id %></td>
-      <td><%= @customer.name %></td>
+      <td><%= link_to @customer.name, customer_path(@customer.mobile), :format => 'html' %></td>
       <td><%= @customer.mobile%></td>
     </tr>
   </tbody>
