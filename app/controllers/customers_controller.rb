@@ -7,7 +7,8 @@ class CustomersController < ApplicationController
     mobile = params[:id]
     @c = Customer.find_by_mobile(mobile)
     if(@c.nil?)
-      render :nothing => true, :status => :not_found
+      flash[:error] = "Customer doesn't exist"
+      redirect_to customers_path 
       return
     end
     @t = @c.transactions

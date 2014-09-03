@@ -29,6 +29,6 @@ describe CustomersController do
   it "should return not found when customer doesnt exist" do
     get :show,:format => :json, id: "9611805469" 
 
-    expect(response).to have_http_status(:not_found)
+    expect(response).to redirect_to customers_path
   end
 end
