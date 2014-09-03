@@ -16,11 +16,10 @@ User.delete_all
 
 
 User.create!(:email => 'mln@tws.com', :password => 'password', :password_confirmation => 'password', :name => "MLN Krishnan")
-User.create!(:email => 'user1@email.com', :password => 'password', :password_confirmation => 'password', :name => "User1")
-User.create!(:email => 'user2@email.com', :password => 'password', :password_confirmation => 'password', :name => "user2")
-User.create!(:email => 'user3@email.com', :password => 'password', :password_confirmation => 'password', :name => "User3")
 User.create!(:email => 'admin@siiplconsulting.com', :password => 'garuda@admin@123', :password_confirmation => 'garuda@admin@123', :name => "Garuda Event Admin", :role => "admin")
 User.create!(:email => 'garudaevent@siiplconsulting.com', :password => 'garuda@123', :password_confirmation => 'garuda@123', :name => "Garuda Event")
+
+(1..30).to_a.each {|n| User.create!(:email => "user#{n}@email.com", :password => 'password', :password_confirmation => 'password', :name => "User#{n}")}
 
 (1..100).to_a.each{|n| VoucherMaster.create! barcode_number: "V#{n}"}
 
