@@ -68,12 +68,12 @@ var Transaction =  function(argument) {
    
     var numRows = parseInt(total /1000);
     for (var i = 0; i < numRows; i++) {
-      var newRow = $($(".voucher-form-template").clone());
+      var newRow = $($(".voucher-form-template").clone()) ;
       newRow.appendTo(voucherForms);
       newRow.removeClass('voucher-form-template');
       newRow.addClass('voucher-form');
+      newRow.find(".serial").html(i+1);
       newRow.removeClass('hide');
-
     } 
     
     $("#VoucherDetailsSection").removeClass("hide");
