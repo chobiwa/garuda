@@ -2,6 +2,10 @@ class StoresController < ApplicationController
   before_action :require_admin_login
   before_action :authenticate_user! 
 
+  def index
+    @stores = Store.order("id").paginate(:page => params[:page], :per_page => 20)
+  end
+
   def show
      store_id = params[:id]
      @store = Store.find_by_id(store_id)

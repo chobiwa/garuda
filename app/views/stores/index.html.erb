@@ -1,0 +1,18 @@
+<%= will_paginate @stores %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stores.each do |s| %>
+    <tr>
+      <td><%= s.id %></td>
+      <td><%= link_to s.name, store_path(s.id), :format => 'html'%></td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+
