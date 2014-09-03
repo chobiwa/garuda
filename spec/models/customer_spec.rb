@@ -26,11 +26,12 @@ describe Customer, :type => :model do
     all_customers.length.should == 0
   end
 
-  it "should ensure presence of email" do 
-    Customer.create name: "name", email: "", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78
+  it "should allow empty email" do 
+    Customer.create! name: "name", email: nil, mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78
+    Customer.create! name: "name", email: "", mobile: "9611805470", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78
 
     all_customers = Customer.all   
-    all_customers.length.should == 0
+    all_customers.length.should == 2
   end
 
   it "should ensure format of email" do 

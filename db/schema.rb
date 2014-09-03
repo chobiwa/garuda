@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140902053831) do
+ActiveRecord::Schema.define(version: 20140903060257) do
 
   create_table "customers", force: true do |t|
-    t.string  "name",       null: false
+    t.string  "name",                    null: false
     t.string  "mobile"
-    t.string  "email",      null: false
+    t.string  "email",      default: ""
     t.string  "address"
     t.string  "occupation"
     t.string  "gender"
