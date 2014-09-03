@@ -326,6 +326,7 @@ var Transaction =  function(argument) {
             $("#Errors").empty();
             $("#Errors").html(msg);
             $("#Errors").removeClass("hide");
+            window.scrollTo(0,0);
           }
         })
       });

@@ -10,25 +10,19 @@ Customer.delete_all
 Store.delete_all
 Transaction.delete_all
 TransactionItem.delete_all
+VoucherMaster.delete_all
 Voucher.delete_all
 User.delete_all
 
 
-user = User.new(:email => 'mln@tws.com', :password => 'password', :password_confirmation => 'password', :name => "MLN Krishnan")
-user.save!
-user = User.new(:email => 'user1@email.com', :password => 'password', :password_confirmation => 'password', :name => "User1")
-user.save!
-user = User.new(:email => 'user2@email.com', :password => 'password', :password_confirmation => 'password', :name => "user2")
-user.save!
-user = User.new(:email => 'user3@email.com', :password => 'password', :password_confirmation => 'password', :name => "User2")
-user.save!
-user = User.new(:email => 'admin@siiplconsulting.com', :password => 'garuda@admin@123', :password_confirmation => 'garuda@admin@123', :name => "Garuda Event Admin", :role => "admin")
-user.save!
-user = User.new(:email => 'garudaevent@siiplconsulting.com', :password => 'garuda@123', :password_confirmation => 'garuda@123', :name => "Garuda Event")
-user.save!
+User.create!(:email => 'mln@tws.com', :password => 'password', :password_confirmation => 'password', :name => "MLN Krishnan")
+User.create!(:email => 'user1@email.com', :password => 'password', :password_confirmation => 'password', :name => "User1")
+User.create!(:email => 'user2@email.com', :password => 'password', :password_confirmation => 'password', :name => "user2")
+User.create!(:email => 'user3@email.com', :password => 'password', :password_confirmation => 'password', :name => "User3")
+User.create!(:email => 'admin@siiplconsulting.com', :password => 'garuda@admin@123', :password_confirmation => 'garuda@admin@123', :name => "Garuda Event Admin", :role => "admin")
+User.create!(:email => 'garudaevent@siiplconsulting.com', :password => 'garuda@123', :password_confirmation => 'garuda@123', :name => "Garuda Event")
 
-
-
+(1..100).to_a.each{|n| VoucherMaster.create! barcode_number: "V#{n}"}
 
 current_path = File.dirname(__FILE__)
 File.open(current_path+"/stores.csv").each do |line|
