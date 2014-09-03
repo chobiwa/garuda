@@ -10,9 +10,10 @@ class TransactionItem < ActiveRecord::Base
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
-      csv <<  column_names
+      columns = ["id"] + ["transaction_id"] + ["bill_no"] + ["store_name"]+ ["amount"]
+      csv <<  columns
       all.each do |c|
-         v = c.attributes.values_at(*column_names)
+         v = [c.id] + [c.transaction_id] +[c.item_id] + [c.store.name] + [c.amount]
         csv << v
       end
     end
