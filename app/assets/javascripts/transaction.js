@@ -208,6 +208,7 @@ var Transaction =  function(argument) {
           $(".age").val(data["age"]);
           $(".occupation").val(data["occupation"]);
           $(".address").val(data["address"]);
+          $(".remarks").val(data["remarks"]);
           $("#CustomerData").removeClass("hide");
         },
         error: function(data){
@@ -290,7 +291,8 @@ var Transaction =  function(argument) {
           "gender": $(".gender").val(),
           "age": $(".age").val(),
           "occupation": $(".occupation").val(),
-          "address": $(".address").val()
+          "address": $(".address").val(),
+          "remarks": $(".remarks").val()
         }
 
         if(!vouchersDisabled) {

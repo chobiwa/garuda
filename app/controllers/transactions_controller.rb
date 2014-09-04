@@ -64,14 +64,15 @@ class TransactionsController < ApplicationController
 
     customer = Customer.find_by_mobile(customer_info["mobile"])
     if(customer.nil?)
-      customer = Customer.new(name: customer_info["name"], email: customer_info["email"], mobile: customer_info["mobile"], address: customer_info["address"], occupation: customer_info["occupation"], gender: customer_info["gender"], age: customer_info["age"])
+      customer = Customer.new(name: customer_info["name"].strip, email: customer_info["email"].strip, mobile: customer_info["mobile"].strip, address: customer_info["address"].strip, occupation: customer_info["occupation"].strip, gender: customer_info["gender"].strip, age: customer_info["age"].strip, remarks: customer_info["remarks"].strip)
     else
-      customer.name = customer_info["name"]
-      customer.email = customer_info["email"]
-      customer.address = customer_info["address"]
-      customer.occupation = customer_info["occupation"]
-      customer.gender = customer_info["gender"]
-      customer.age = customer_info["age"]
+      customer.name = customer_info["name"].strip
+      customer.email = customer_info["email"].strip
+      customer.address = customer_info["address"].strip
+      customer.occupation = customer_info["occupation"].strip
+      customer.gender = customer_info["gender"].strip
+      customer.age = customer_info["age"].strip
+      customer.remarks = customer_info["remarks"].strip
     end
 
 

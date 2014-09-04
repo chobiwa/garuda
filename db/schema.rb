@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903060257) do
+ActiveRecord::Schema.define(version: 20140904054130) do
 
   create_table "customers", force: true do |t|
     t.string  "name",                    null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140903060257) do
     t.string  "occupation"
     t.string  "gender"
     t.integer "age"
+    t.string  "remarks",    default: ""
   end
 
   add_index "customers", ["mobile"], name: "index_customers_on_mobile", unique: true, using: :btree

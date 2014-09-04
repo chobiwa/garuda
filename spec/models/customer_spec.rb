@@ -3,7 +3,7 @@ require "rails_helper"
 describe Customer, :type => :model do
 
   it "should create a new customer" do
-    Customer.create! name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78
+    Customer.create! name: "Chobi", email: "chobi@goo.com", mobile: "9611805469", address: "20, blah, blah", occupation: "Blah", gender: "M", age: 78, remarks: "i'm remarkable!" 
 
     all_customers = Customer.all   
     
@@ -17,6 +17,7 @@ describe Customer, :type => :model do
     expected_customer.occupation.should == "Blah"
     expected_customer.gender.should == "M"
     expected_customer.age.should == 78
+    expected_customer.remarks.should == "i'm remarkable!"
   end
 
   it "should ensure presence of name" do 

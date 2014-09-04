@@ -28,7 +28,7 @@ describe TransactionsController do
     post :create, '{"receiptInfo":[
                         {"storeName":"Cookie Jar","amount":"1000","billNo":"AWE","isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":"remarkssa"},
                     "voucherInfo":[
                         {"barCode":"QWEEW"}
                     ]}'
@@ -41,6 +41,7 @@ describe TransactionsController do
     customer.address.should == "12, B Main, elsewhere"
     customer.occupation.should == "Dev"
     customer.gender.should == "M"
+    customer.remarks.should == "remarkssa"
     customer.age.should == 112
 
     customer.transactions.length.should == 1
@@ -68,7 +69,7 @@ describe TransactionsController do
                         {"storeName":"Monkey Bar","amount":"400","billNo":"AWE2", "isToday":true},
                         {"storeName":"Donkey Car","amount":"100","billNo":"AWE3", "isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"QWEEW"}
                     ]}'
@@ -88,7 +89,7 @@ describe TransactionsController do
                         {"storeName":"Monkey Bar","amount":"1000","billNo":"2", "isToday":true},
                         {"storeName":"Donkey Car","amount":"1000","billNo":"3", "isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"1"},
                         {"barCode":"2"},
@@ -109,7 +110,7 @@ describe TransactionsController do
                         {"storeName":"Monkey Bar","amount":"200","billNo":"2", "isToday":true},
                         {"storeName":"Donkey Car","amount":"699","billNo":"3", "isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"1"},
                         {"barCode":"2"},
@@ -127,7 +128,7 @@ describe TransactionsController do
                         {"storeName":"Monkey Bar","amount":"1200","billNo":"2", "isToday":true},
                         {"storeName":"Donkey Car","amount":"1000","billNo":"3", "isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"1"}
                     ]}'
@@ -143,7 +144,7 @@ describe TransactionsController do
                         {"storeName":"Monkey Bar","amount":"1200","billNo":"2", "isToday":true},
                         {"storeName":"Donkey Car","amount":"1000","billNo":"3", "isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"1"},
                         {"barCode":"2"},
@@ -163,7 +164,7 @@ describe TransactionsController do
                         {"storeName":"Cookie Jar","amount":"1000","billNo":"1", "isToday":true},
                         {"storeName":"Monkey Bar","amount":"1000","billNo":"2", "isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"1"},
                         {"barCode":"2"}
@@ -174,7 +175,7 @@ describe TransactionsController do
                         {"storeName":"Monkey Bar","amount":"1020","billNo":"4", "isToday":true},
                         {"storeName":"Donkey Car","amount":"1000","billNo":"5", "isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"Foo","email":"foo@tw.cc","gender":"F","age":"121","occupation":"Foo","address":"Foo"},
+                    "customerInfo":{"mobile":"9887887878","name":"Foo","email":"foo@tw.cc","gender":"F","age":"121","occupation":"Foo","address":"Foo","remarks":""},
                     "voucherInfo":[
                         {"barCode":"3"},
                         {"barCode":"4"},
@@ -207,7 +208,7 @@ describe TransactionsController do
                         {"storeName":"Monkey Bar","amount":"1000","billNo":"AWE3", "isToday":true},
                         {"storeName":"Donkey Tar","amount":"1000","billNo":"AWE3", "isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"QWEEW"}
                     ]}'
@@ -221,7 +222,7 @@ describe TransactionsController do
     post :create, '{"receiptInfo":[
                         {"storeName":"Cookie Jar","amount":"1000","billNo":"AWE","isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"QWEEW"}
                     ]}'
@@ -233,7 +234,7 @@ describe TransactionsController do
     post :create, '{"receiptInfo":[
                         {"storeName":"Cookie Jar","amount":"1000","billNo":"AWES","isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"1"}
                     ]}'
@@ -246,7 +247,7 @@ describe TransactionsController do
     post :create, '{"receiptInfo":[
                         {"storeName":"Cookie Jar","amount":"1000","billNo":"AWE","isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"QWEEW"},{"barCode":"QWEEW"}
                     ]}'
@@ -261,7 +262,7 @@ describe TransactionsController do
     post :create, '{"receiptInfo":[
                         {"storeName":"Cookie Jar","amount":"1000","billNo":"AWE","isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"},
+                    "customerInfo":{"mobile":"9887887878","name":"MLN","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""},
                     "voucherInfo":[
                         {"barCode":"QWEEW"}
                     ]}'
@@ -273,7 +274,7 @@ describe TransactionsController do
     post :create, '{"receiptInfo":[
                         {"storeName":"Monkey Bar","amount":"1000","billNo":"AWES","isToday":true}
                     ],
-                    "customerInfo":{"mobile":"9887887878","name":"Foo","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere"}}'
+                    "customerInfo":{"mobile":"9887887878","name":"Foo","email":"mln@tw.cc","gender":"M","age":"112","occupation":"Dev","address":"12, B Main, elsewhere","remarks":""}}'
 
 
     expect(response).to have_http_status(:ok)
