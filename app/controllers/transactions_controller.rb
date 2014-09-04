@@ -54,7 +54,7 @@ class TransactionsController < ApplicationController
     errors = []
     duplicate_vouchers = voucher_info.group_by {|v| v["barCode"]}.select { |k,v| v.size > 1}.keys
     duplicate_vouchers.each do |v|
-      errors << "Duplicate Vouchers entered! Voucher No: #{v}"
+      errors << "Duplicate Coupon Codes entered! Coupon No: #{v}"
     end
     if (errors.length > 0)
       render  :json => errors, :status => :bad_request
@@ -102,14 +102,14 @@ class TransactionsController < ApplicationController
     end
     
     voucher_info.each do |voucher|
-      transaction.vouchers.new(barcode_number: voucher["barCode"].strip)
+      transaction.vouchers.new(barcode_number: voucher["barCode"].strip.upcase)
     end
 
     begin
-      customer.save!  
+      customer.save!      
     rescue ActiveRecord::RecordInvalid => e
       errors = []
-      
+
       transaction.transaction_items.each do |ti|
         ti.errors.to_a.each do |e|
           if(e == "Item Receipt Taken")
@@ -126,7 +126,6 @@ class TransactionsController < ApplicationController
         end
       end
 
-
       transaction.vouchers.each do |v|
         v.errors.to_a.each do |e|
           if(e == "Voucher master Invalid Voucher")
@@ -134,12 +133,10 @@ class TransactionsController < ApplicationController
           end
         end
       end
-
-
+      
       render  :json => errors, :status => :bad_request
       return
     end
-    
 
     flash[:notice] = "Transaction saved. Transaction Id = #{transaction.id}"    
     render :nothing => true
