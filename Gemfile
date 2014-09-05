@@ -39,6 +39,10 @@ gem 'unicorn'
 
 gem 'will_paginate'
 
+gem 'barby'
+
+gem "paperclip", "~> 4.2"
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

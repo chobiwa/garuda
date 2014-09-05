@@ -1,10 +1,29 @@
-<h4>Transaction Details</h4>
+<% if (!@transaction.has_winner_doc?) %>
+  <h4>Uplaod winner pdf</h4>
+  <form class="form-horizontal" method="post" action="<%= transaction_path(@transaction.id)%>" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="WinnerDoc" class="col-sm-2 control-label">File*</label>
+        <div class="col-sm-6">
+          <input type="file" id="WinnerDoc" name = "winner_doc" accept="application/pdf" /> 
+          <input name="_method" type="hidden" value="patch">
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        </div>
+        <div class="col-sm-3">
+          <button id="uplaod" class="btn btn-large btn-primary ccontrol" type="submit">Upload</button>
+        </div>
+      </div>
+  </form>
+
+<% end %>
+
+<h4 style="margin-top:30px;">Transaction Details</h4>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Id</th>
       <th>Total Amount</th>
       <th>Date</th>
+      <th>Document</th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +31,9 @@
       <td><%= @transaction.id %></td>
       <td><%= @transaction.total_amount %></td>
       <td><%= @transaction.date.utc.localtime.strftime("%Y-%m-%d %H:%M:%S")%></td>
+      <% if @transaction.has_winner_doc?%>
+        <td><a href="<%= @transaction.winner_doc.url%>">Download</a></td>
+      <%end%>
     </tr>
   </tbody>
 </table>
@@ -59,7 +81,7 @@
   <thead>
     <tr>
       <th>Voucher Id</th>
-      <th>Barcode NUmber</th>
+      <th>Barcode Number</th>
     </tr>
   </thead>
   <tbody>

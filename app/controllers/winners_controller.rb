@@ -31,6 +31,6 @@ class WinnersController < ApplicationController
 
 
     flash[:notice] = 'Winner updated succesfully.'
-    redirect_to new_transaction_path
+    redirect_to transaction_path v.transact.id
   end
 end

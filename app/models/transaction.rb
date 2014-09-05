@@ -7,8 +7,15 @@ class Transaction < ActiveRecord::Base
   has_many :transaction_items
   has_many :vouchers
 
+  has_attached_file :winner_doc
+  validates_attachment :winner_doc, content_type: { content_type: "application/pdf" }
+
   def total_amount
     self.transaction_items.map{|ti| ti.amount}.inject {|total, t| total + t}
+  end
+
+  def has_winner_doc?
+    !self.winner_doc.blank?
   end
 
   def is_winner?

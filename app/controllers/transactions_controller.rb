@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-  before_action :require_admin_login, only: :index
+  before_action :require_admin_login, only: [:index,:show,:update]
   before_action :authenticate_user! 
   
   def new
@@ -31,6 +31,33 @@ class TransactionsController < ApplicationController
       format.html
       format.csv { send_data @transactions.to_csv }
     end
+  end
+
+  def update
+    file = params[:winner_doc]
+    transaction = Transaction.find params[:id]
+
+    if(transaction.nil?)
+      flash[:error] = "Transaction with id: #{params[:id]} does not exist"
+      redirect_to new_transaction_path
+      return
+    end
+
+    if(file.nil?)
+      flash[:error] = "Select a file before uploading"
+      redirect_to transaction_path params[:id]
+      return
+    end
+
+    if (!transaction.is_winner?)
+      flash[:error] = "Upload file for transaction containing winning coupons only."
+      redirect_to transaction_path params[:id]
+      return
+    end
+    transaction.winner_doc = file
+    transaction.save!
+    flash[:notice] = "Transaction updated"
+    redirect_to transaction_path transaction.id
   end
 
   def create

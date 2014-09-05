@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140904054130) do
+ActiveRecord::Schema.define(version: 20140905092656) do
 
   create_table "customers", force: true do |t|
     t.string  "name",                    null: false
@@ -43,8 +43,12 @@ ActiveRecord::Schema.define(version: 20140904054130) do
   add_index "transaction_items", ["item_id", "store_id"], name: "index_transaction_items_on_item_id_and_store_id", unique: true, using: :btree
 
   create_table "transactions", force: true do |t|
-    t.datetime "date",        null: false
+    t.datetime "date",                    null: false
     t.integer  "customer_id"
+    t.string   "winner_doc_file_name"
+    t.string   "winner_doc_content_type"
+    t.integer  "winner_doc_file_size"
+    t.datetime "winner_doc_updated_at"
   end
 
   create_table "users", force: true do |t|
