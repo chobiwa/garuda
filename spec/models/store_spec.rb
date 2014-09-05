@@ -22,7 +22,7 @@ describe Store, :type => :model do
     
     expect {
       Store.create! name: "Foo"
-    }.to raise_error(ActiveRecord::RecordNotUnique)
+    }.to raise_error(ActiveRecord::RecordInvalid)
 
     all_stores = Store.all 
     all_stores.length.should == 1
