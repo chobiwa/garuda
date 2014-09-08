@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 20140905092656) do
     t.string "barcode_number", null: false
   end
 
+  add_index "voucher_masters", ["barcode_number"], name: "index_voucher_masters_on_barcode_number", unique: true, using: :btree
+
   create_table "vouchers", force: true do |t|
     t.string  "barcode_number", null: false
     t.integer "transaction_id", null: false

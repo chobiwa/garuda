@@ -21,11 +21,40 @@ User.create!(:email => 'garudaevent@siiplconsulting.com', :password => 'garuda@1
 
 (1..30).to_a.each {|n| User.create!(:email => "user#{n}@email.com", :password => 'password', :password_confirmation => 'password', :name => "User#{n}")}
 
-(1..100).to_a.each{|n| VoucherMaster.create! barcode_number: "V#{n}"}
-
 current_path = File.dirname(__FILE__)
 File.open(current_path+"/stores.csv").each do |line|
   s = Store.new name:line.strip
   s.save!
 end
 
+File.open(current_path+"/barcodes.txt").each do |line|
+  VoucherMaster.create! barcode_number: line.strip
+end
+
+
+
+
+# require 'barby/barcode/code_128'
+# require 'barby/outputter/png_outputter'
+
+
+# def generate(c)
+#   dir = File.dirname(__FILE__)
+#   new_file = File.new("#{dir}/barcodes#{c}.txt", "w")
+#   (0...12500).each do |t|
+#     puts "#{t}"
+#     barcode_text = (0...8).map { (65 + rand(26)).chr }.join
+#     code = Barby::Code128.new barcode_text
+#     File.open("#{dir}/barcodes/#{barcode_text}.png", 'w'){|f| f.write code.to_png }
+#     new_file.puts barcode_text
+#   end  
+#   new_file.close
+# end
+
+# threads = []
+# (0...16).each do |t|
+#   e = Thread.new { generate(t) }
+#   threads << e
+# end
+
+# threads.each {|t| t.join}

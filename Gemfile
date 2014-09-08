@@ -40,6 +40,7 @@ gem 'unicorn'
 gem 'will_paginate'
 
 gem 'barby'
+gem 'chunky_png'
 
 gem "paperclip", "~> 4.2"
 
