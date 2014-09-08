@@ -73,6 +73,21 @@ var Transaction =  function(argument) {
       newRow.removeClass('voucher-form-template');
       newRow.addClass('voucher-form');
       newRow.find(".serial").html(i+1);
+      var text = newRow.find(".vcontrol");
+      $(text).attr("num", i)
+      
+      $(text).keypress(function(){
+        if($(this).val().length == 7){
+          current = parseInt($(this).attr("num"))
+          nextEle = $(document).find('[num="' + (current+1) +'"]')
+          if(!!nextEle){
+            $(nextEle).focus();
+          }else{
+            
+          }
+        }
+      });
+
       newRow.removeClass('hide');
     } 
     
