@@ -2,9 +2,9 @@ require "rails_helper"
 
 describe Voucher, :type => :model do
   before(:each) do
-    VoucherMaster.create! barcode_number: '#123abc'
-    VoucherMaster.create! barcode_number: '#123pqr'
-    VoucherMaster.create! barcode_number: '#123xyz'
+    VoucherMaster.create! barcode_number: '#123abc', serial: 'ab', book: 'abcd'
+    VoucherMaster.create! barcode_number: '#123pqr', serial: 'ab', book: 'abcd'
+    VoucherMaster.create! barcode_number: '#123xyz', serial: 'ab', book: 'abcd'
   end
 
   it "should create a Voucher which exists in valid vouchers list" do

@@ -27,8 +27,8 @@ File.open(current_path+"/stores.csv").each do |line|
   s.save!
 end
 
-File.open(current_path+"/barcodes.txt").each do |line|
-  VoucherMaster.create! barcode_number: line.strip
+File.open(current_path+"/barcodes.csv").each do |line|
+  VoucherMaster.create! barcode_number: line.strip, serial: '', book: ''
 end
 
 
@@ -43,7 +43,7 @@ end
 #   new_file = File.new("#{dir}/barcodes#{c}.txt", "w")
 #   (0...12500).each do |t|
 #     puts "#{t}"
-#     barcode_text = (0...8).map { (65 + rand(26)).chr }.join
+#     barcode_text = (0...1).map {(0...2).map { (65 + rand(26)).chr }.join + (0...6).map {(48 + rand(9)).chr}.join}.join
 #     code = Barby::Code128.new barcode_text
 #     File.open("#{dir}/barcodes/#{barcode_text}.png", 'w'){|f| f.write code.to_png }
 #     new_file.puts barcode_text

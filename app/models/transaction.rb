@@ -28,7 +28,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def vouchers_length
-    self.vouchers.length
+    self.vouchers.size
   end
 
   def self.to_csv(options = {})

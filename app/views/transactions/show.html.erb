@@ -82,6 +82,8 @@
     <tr>
       <th>Voucher Id</th>
       <th>Barcode Number</th>
+      <th>Book Number</th>
+      <th>Serial Number</th>
     </tr>
   </thead>
   <tbody>
@@ -89,7 +91,9 @@
       <% @vouchers.each do |v| %>
       <tr>
       <td><%= v.id %></td>
-      <td><%= v.barcode_number %> </td></tr>
+      <td><%= v.barcode_number %> </td>
+      <td><%= v.voucher_master.book %> </td>
+      <td><%= v.voucher_master.serial %> </td></tr>
       <% end %>
     </tr>
   </tbody>

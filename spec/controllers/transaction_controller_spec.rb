@@ -6,17 +6,17 @@ describe TransactionsController do
     store = Store.create name:"Cookie Jar"
     store = Store.create name:"Monkey Bar"
     store = Store.create name:"Donkey Car"
-    voucher =  VoucherMaster.new(:barcode_number => 'QWEEW')
+    voucher =  VoucherMaster.new(:barcode_number => 'QWEEW', :serial => 'ab', :book => 'abc')
     voucher.save!
-    voucher =  VoucherMaster.new(:barcode_number => '1')
+    voucher =  VoucherMaster.new(:barcode_number => '1', :serial => 'ab', :book => 'abc')
     voucher.save!
-    voucher =  VoucherMaster.new(:barcode_number => '2')
+    voucher =  VoucherMaster.new(:barcode_number => '2', :serial => 'ab', :book => 'abc')
     voucher.save!
-    voucher =  VoucherMaster.new(:barcode_number => '3')
+    voucher =  VoucherMaster.new(:barcode_number => '3', :serial => 'ab', :book => 'abc')
     voucher.save!
-    voucher =  VoucherMaster.new(:barcode_number => '4')
+    voucher =  VoucherMaster.new(:barcode_number => '4', :serial => 'ab', :book => 'abc')
     voucher.save!
-    voucher =  VoucherMaster.new(:barcode_number => '5')
+    voucher =  VoucherMaster.new(:barcode_number => '5', :serial => 'ab', :book => 'abc')
     voucher.save!
     user =  User.new(:email => 'mln@tws.com', :password => 'password', :password_confirmation => 'password', :name => "MLN Krishnan")
     user.save!
@@ -122,7 +122,7 @@ describe TransactionsController do
     Customer.all.length.should == 0
   end
   
-  it "Fails when less vouchers are issued" do
+  it "Does not fail when less vouchers are issued" do
     post :create, '{"receiptInfo":[
                         {"storeName":"Cookie Jar","amount":"100","billNo":"1", "isToday":true},
                         {"storeName":"Monkey Bar","amount":"1200","billNo":"2", "isToday":true},
@@ -133,9 +133,8 @@ describe TransactionsController do
                         {"barCode":"1"}
                     ]}'
 
-    expect(response).to have_http_status(:bad_request)
 
-    Customer.all.length.should == 0
+    Customer.all.length.should == 1
   end
   
   it "Fails when more vouchers are issued" do

@@ -18,9 +18,9 @@ class Voucher < ActiveRecord::Base
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
-      csv <<  column_names
+      csv <<  column_names + ["Serial Number", "Book Number"]
       all.each do |c|
-         v = c.attributes.values_at(*column_names)
+         v = [c.id] + [c.barcode_number] + [c.transaction_id] + [c.winner] + [c.win_date] + [c.voucher_master.serial] + [c.voucher_master.book]
         csv << v
       end
     end

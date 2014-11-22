@@ -18,6 +18,7 @@ class VouchersController < ApplicationController
       return
     end
     @transaction = @voucher.transact
+    @voucher_master_details = @voucher.voucher_master
     @transaction_items = @transaction.transaction_items
     @customer = @transaction.customer
   end

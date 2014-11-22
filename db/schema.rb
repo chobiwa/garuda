@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905092656) do
+ActiveRecord::Schema.define(version: 20141121065043) do
 
   create_table "customers", force: true do |t|
     t.string  "name",                    null: false
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(version: 20140905092656) do
 
   create_table "voucher_masters", force: true do |t|
     t.string "barcode_number", null: false
+    t.string "serial"
+    t.string "book"
   end
 
   add_index "voucher_masters", ["barcode_number"], name: "index_voucher_masters_on_barcode_number", unique: true, using: :btree

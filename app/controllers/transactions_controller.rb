@@ -77,16 +77,25 @@ class TransactionsController < ApplicationController
        return
     end
 
-
     errors = []
-    duplicate_vouchers = voucher_info.group_by {|v| v["barCode"]}.select { |k,v| v.size > 1}.keys
-    duplicate_vouchers.each do |v|
-      errors << "Duplicate Coupon Codes entered! Coupon No: #{v}"
+    valid_vouchers = voucher_info.reject{|info| info["barCode"].blank? }
+    customer = Customer.find_by_mobile(customer_info["mobile"])
+
+    if (valid_vouchers.blank?)
+      if(!customer.nil? and !customer.is_winner?)
+        errors << "No coupons entered! Please enter atleast one coupon to save!"
+      end
+    else
+      duplicate_vouchers = valid_vouchers.group_by {|v| v["barCode"]}.select { |k,v| v.size > 1}.keys
+      duplicate_vouchers.each do |v|
+        errors << "Duplicate Coupon Codes entered! Coupon No: #{v}"
+      end
     end
     if (errors.length > 0)
       render  :json => errors, :status => :bad_request
       return
     end
+
 
 
     customer = Customer.find_by_mobile(customer_info["mobile"])
@@ -102,8 +111,7 @@ class TransactionsController < ApplicationController
       customer.remarks = customer_info["remarks"].strip
     end
 
-
-    if(customer.is_winner? and !voucher_info.empty?)
+    if(customer.is_winner? and !valid_vouchers.empty?)
       render :nothing => true, :status => :bad_request
       return
     end
@@ -112,11 +120,12 @@ class TransactionsController < ApplicationController
       no_of_vouchers_to_issue = total_receipt_value / 1000
 
     
-      if(voucher_info.length != no_of_vouchers_to_issue)
+      if(valid_vouchers.length > no_of_vouchers_to_issue)
         render :nothing => true, :status => 400
         return
       end
     end
+
 
     transaction = customer.transactions.new date: DateTime.now
     receipt_info.each do |receipt|
@@ -128,7 +137,7 @@ class TransactionsController < ApplicationController
       transaction.transaction_items.new(item_id: receipt["billNo"], store: store, amount: receipt["amount"], date: Date.today)
     end
     
-    voucher_info.each do |voucher|
+    valid_vouchers.each do |voucher|
       transaction.vouchers.new(barcode_number: voucher["barCode"].strip.upcase)
     end
 

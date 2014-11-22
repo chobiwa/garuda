@@ -1,5 +1,21 @@
 <h4>Voucher: <%= @voucher.barcode_number%></h4>
 
+<h4 style="margin-top:50px;">Voucher Details</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Book Number</th>
+      <th>Serial Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @voucher_master_details.book %></td>
+      <td><%= @voucher_master_details.serial %></td>
+    </tr>
+  </tbody>
+</table>
+
 <h4 style="margin-top:50px;">Customer Details</h4>
 <table class="table table-striped">
   <thead>
