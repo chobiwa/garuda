@@ -25,6 +25,7 @@ class CustomersController < ApplicationController
 
   def index
     @customers = Customer.all
+    @customers1= Customer.all.paginate(:page => params[:page], :per_page => 20)
     respond_to do |format|
       format.html
       format.csv { send_data @customers.to_csv }

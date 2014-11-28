@@ -22,7 +22,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @customers.sort_by {|c| c.total_spent}.reverse.each do |c| %>
+    <% @customers1.sort_by {|c| c.total_spent}.reverse.each do |c| %>
     <tr>
       <td><%= c.id %></td>
       <td><%= link_to c.name, customer_path(c.mobile), :format => 'html'%></td>
@@ -30,6 +30,7 @@
       <td><%= c.total_spent%></td>
     </tr>
     <%end%>
+    <%= will_paginate @customers1 %>
   </tbody>
 </table>
 
